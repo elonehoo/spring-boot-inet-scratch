@@ -1,0 +1,30 @@
+server:
+  port: 6060
+  servlet:
+    context-path: /scratch
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://42.192.41.187:3306/scratch?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: Hcy05080901
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host: 42.192.41.187
+    port: 6379
+    password: hcy05080901
+  session:
+    store-type: redis
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 60MB
+logging:
+  level:
+    root: warn
+    com.inet: debug
+  file:
+    path: log/scratch.log
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml

@@ -1,0 +1,94 @@
+2020-11-14 14:38:19.987  INFO 14312 --- [main] com.inet.INetApplication                 : Starting INetApplication using Java 15.0.1 on DESKTOP-TSJVEJ5 with PID 14312 (D:\8.items\spring-boot-inet-scratch\target\classes started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 14:38:19.989 DEBUG 14312 --- [main] com.inet.INetApplication                 : Running with Spring Boot v2.4.0, Spring v5.3.1
+2020-11-14 14:38:19.989  INFO 14312 --- [main] com.inet.INetApplication                 : No active profile set, falling back to default profiles: default
+2020-11-14 14:38:22.081  INFO 14312 --- [main] com.inet.INetApplication                 : Started INetApplication in 2.329 seconds (JVM running for 2.704)
+2020-11-14 14:38:37.159  INFO 13704 --- [main] com.inet.INetApplication                 : Starting INetApplication using Java 15.0.1 on DESKTOP-TSJVEJ5 with PID 13704 (D:\8.items\spring-boot-inet-scratch\target\classes started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 14:38:37.161 DEBUG 13704 --- [main] com.inet.INetApplication                 : Running with Spring Boot v2.4.0, Spring v5.3.1
+2020-11-14 14:38:37.161  INFO 13704 --- [main] com.inet.INetApplication                 : No active profile set, falling back to default profiles: default
+2020-11-14 14:38:39.057  INFO 13704 --- [main] com.inet.INetApplication                 : Started INetApplication in 2.116 seconds (JVM running for 2.474)
+2020-11-14 14:57:28.745  INFO 1592 --- [main] com.inet.INetApplication                 : Starting INetApplication using Java 15.0.1 on DESKTOP-TSJVEJ5 with PID 1592 (D:\8.items\spring-boot-inet-scratch\target\classes started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 14:57:28.746 DEBUG 1592 --- [main] com.inet.INetApplication                 : Running with Spring Boot v2.4.0, Spring v5.3.1
+2020-11-14 14:57:28.747  INFO 1592 --- [main] com.inet.INetApplication                 : No active profile set, falling back to default profiles: default
+2020-11-14 14:57:30.656  INFO 1592 --- [main] com.inet.INetApplication                 : Started INetApplication in 2.156 seconds (JVM running for 2.527)
+2020-11-14 15:02:15.150  INFO 13620 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests using Java 15.0.1 on DESKTOP-TSJVEJ5 with PID 13620 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 15:02:15.151 DEBUG 13620 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.4.0, Spring v5.3.1
+2020-11-14 15:02:15.152  INFO 13620 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 15:02:18.820  INFO 13620 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 3.913 seconds (JVM running for 4.559)
+2020-11-14 16:11:18.710  INFO 896 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests using Java 15.0.1 on DESKTOP-TSJVEJ5 with PID 896 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 16:11:18.711 DEBUG 896 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.4.0, Spring v5.3.1
+2020-11-14 16:11:18.713  INFO 896 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 16:11:22.157  INFO 896 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 3.661 seconds (JVM running for 4.288)
+2020-11-14 16:34:27.671  INFO 14836 --- [main] com.inet.INetApplication                 : Starting INetApplication using Java 15.0.1 on DESKTOP-TSJVEJ5 with PID 14836 (D:\8.items\spring-boot-inet-scratch\target\classes started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 16:34:27.675 DEBUG 14836 --- [main] com.inet.INetApplication                 : Running with Spring Boot v2.4.0, Spring v5.3.1
+2020-11-14 16:34:27.675  INFO 14836 --- [main] com.inet.INetApplication                 : No active profile set, falling back to default profiles: default
+2020-11-14 16:34:33.339  INFO 14836 --- [main] com.inet.INetApplication                 : Started INetApplication in 6.643 seconds (JVM running for 12.838)
+2020-11-14 16:36:46.322  INFO 1720 --- [main] com.inet.INetApplication                 : Starting INetApplication on DESKTOP-TSJVEJ5 with PID 1720 (D:\8.items\spring-boot-inet-scratch\target\classes started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 16:36:46.324 DEBUG 1720 --- [main] com.inet.INetApplication                 : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 16:36:46.324  INFO 1720 --- [main] com.inet.INetApplication                 : No active profile set, falling back to default profiles: default
+2020-11-14 16:36:52.052  INFO 1720 --- [main] com.inet.INetApplication                 : Started INetApplication in 6.384 seconds (JVM running for 8.493)
+2020-11-14 16:37:15.737  INFO 9984 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests on DESKTOP-TSJVEJ5 with PID 9984 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 16:37:15.738 DEBUG 9984 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 16:37:15.739  INFO 9984 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 16:37:19.523  INFO 9984 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 4.011 seconds (JVM running for 4.684)
+2020-11-14 18:00:35.780  INFO 2224 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests on DESKTOP-TSJVEJ5 with PID 2224 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 18:00:35.781 DEBUG 2224 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 18:00:35.781  INFO 2224 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 18:00:39.147  INFO 2224 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 3.577 seconds (JVM running for 4.269)
+2020-11-14 18:00:58.650  INFO 16232 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests on DESKTOP-TSJVEJ5 with PID 16232 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 18:00:58.651 DEBUG 16232 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 18:00:58.651  INFO 16232 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 18:01:02.009  INFO 16232 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 3.611 seconds (JVM running for 4.352)
+2020-11-14 18:01:32.121  INFO 14828 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests on DESKTOP-TSJVEJ5 with PID 14828 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 18:01:32.122 DEBUG 14828 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 18:01:32.123  INFO 14828 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 18:01:35.391  INFO 14828 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 3.512 seconds (JVM running for 4.209)
+2020-11-14 18:02:50.473  INFO 6096 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests on DESKTOP-TSJVEJ5 with PID 6096 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 18:02:50.474 DEBUG 6096 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 18:02:50.475  INFO 6096 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 18:02:53.701  INFO 6096 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 3.452 seconds (JVM running for 4.142)
+2020-11-14 18:05:48.828  INFO 9188 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests on DESKTOP-TSJVEJ5 with PID 9188 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 18:05:48.829 DEBUG 9188 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 18:05:48.830  INFO 9188 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 18:05:52.242  INFO 9188 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 3.645 seconds (JVM running for 4.385)
+2020-11-14 18:06:42.682  INFO 14520 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests on DESKTOP-TSJVEJ5 with PID 14520 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 18:06:42.683 DEBUG 14520 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 18:06:42.683  INFO 14520 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 18:06:45.953  INFO 14520 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 3.522 seconds (JVM running for 4.256)
+2020-11-14 18:21:58.610  INFO 7440 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests on DESKTOP-TSJVEJ5 with PID 7440 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 18:21:58.612 DEBUG 7440 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 18:21:58.612  INFO 7440 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 18:22:02.101  INFO 7440 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 3.749 seconds (JVM running for 4.492)
+2020-11-14 18:22:02.712 DEBUG 7440 --- [main] c.inet.code.mapper.UserMapper.getLogin   : ==>  Preparing: SELECT t1.user_uuid AS userUuid, t1.user_buddha AS userBuddha, t1.user_name AS userName, t1.user_email AS userEmail, t1.user_sex AS userSex, t1.user_birthday AS userBirthday, t1.user_city AS userCity, t1.user_signature AS userSignature, t3.role_name AS roleName FROM tbl_user AS t1 LEFT JOIN tbl_power AS t2 ON t1.user_email = t2.power_email LEFT JOIN tbl_role AS t3 ON t2.power_role = t3.role_uuid LEFT JOIN tbl_cipher AS t4 ON t1.user_email = t4.cipher_email WHERE t4.cipher_email = ? AND t4.cipher_password = ?
+2020-11-14 18:22:02.735 DEBUG 7440 --- [main] c.inet.code.mapper.UserMapper.getLogin   : ==> Parameters: huchengyea@163.com(String), 202cb962ac59075b964b07152d234b70(String)
+2020-11-14 18:22:02.766 DEBUG 7440 --- [main] c.inet.code.mapper.UserMapper.getLogin   : <==      Total: 1
+2020-11-14 18:31:12.218  INFO 10572 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests on DESKTOP-TSJVEJ5 with PID 10572 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 18:31:12.219 DEBUG 10572 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 18:31:12.220  INFO 10572 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 18:31:15.590  INFO 10572 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 3.631 seconds (JVM running for 4.329)
+2020-11-14 18:46:03.587  INFO 16576 --- [main] com.inet.INetApplication                 : Starting INetApplication on DESKTOP-TSJVEJ5 with PID 16576 (D:\8.items\spring-boot-inet-scratch\target\classes started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 18:46:03.589 DEBUG 16576 --- [main] com.inet.INetApplication                 : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 18:46:03.590  INFO 16576 --- [main] com.inet.INetApplication                 : No active profile set, falling back to default profiles: default
+2020-11-14 18:46:05.612  WARN 16576 --- [main] d.s.r.o.OperationImplicitParameterReader : Unable to interpret the implicit parameter configuration with dataType: String, dataTypeClass: class java.lang.Void
+2020-11-14 18:46:05.615  WARN 16576 --- [main] d.s.r.o.OperationImplicitParameterReader : Unable to interpret the implicit parameter configuration with dataType: String, dataTypeClass: class java.lang.Void
+2020-11-14 18:46:05.673  INFO 16576 --- [main] com.inet.INetApplication                 : Started INetApplication in 2.29 seconds (JVM running for 2.684)
+2020-11-14 18:46:38.710 DEBUG 16576 --- [http-nio-6060-exec-4] c.inet.code.mapper.UserMapper.getLogin   : ==>  Preparing: SELECT t1.user_uuid AS userUuid, t1.user_buddha AS userBuddha, t1.user_name AS userName, t1.user_email AS userEmail, t1.user_sex AS userSex, t1.user_birthday AS userBirthday, t1.user_city AS userCity, t1.user_signature AS userSignature, t3.role_name AS roleName FROM tbl_user AS t1 LEFT JOIN tbl_power AS t2 ON t1.user_email = t2.power_email LEFT JOIN tbl_role AS t3 ON t2.power_role = t3.role_uuid LEFT JOIN tbl_cipher AS t4 ON t1.user_email = t4.cipher_email WHERE t4.cipher_email = ? AND t4.cipher_password = ?
+2020-11-14 18:46:38.722 DEBUG 16576 --- [http-nio-6060-exec-4] c.inet.code.mapper.UserMapper.getLogin   : ==> Parameters: huchengyea@163.com(String), 202cb962ac59075b964b07152d234b70(String)
+2020-11-14 18:46:38.739 DEBUG 16576 --- [http-nio-6060-exec-4] c.inet.code.mapper.UserMapper.getLogin   : <==      Total: 1
+2020-11-14 18:50:49.866  INFO 16720 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests on DESKTOP-TSJVEJ5 with PID 16720 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 18:50:49.867 DEBUG 16720 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 18:50:49.868  INFO 16720 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 18:50:53.154  WARN 16720 --- [main] d.s.r.o.OperationImplicitParameterReader : Unable to interpret the implicit parameter configuration with dataType: String, dataTypeClass: class java.lang.Void
+2020-11-14 18:50:53.159  WARN 16720 --- [main] d.s.r.o.OperationImplicitParameterReader : Unable to interpret the implicit parameter configuration with dataType: String, dataTypeClass: class java.lang.Void
+2020-11-14 18:50:53.240  INFO 16720 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 3.593 seconds (JVM running for 4.224)
+2020-11-14 18:50:53.850 DEBUG 16720 --- [main] c.inet.code.mapper.UserMapper.getLogin   : ==>  Preparing: SELECT t1.user_uuid AS userUuid, t1.user_buddha AS userBuddha, t1.user_name AS userName, t1.user_email AS userEmail, t1.user_sex AS userSex, t1.user_birthday AS userBirthday, t1.user_city AS userCity, t1.user_signature AS userSignature, t3.role_name AS roleName FROM tbl_user AS t1 LEFT JOIN tbl_power AS t2 ON t1.user_email = t2.power_email LEFT JOIN tbl_role AS t3 ON t2.power_role = t3.role_uuid LEFT JOIN tbl_cipher AS t4 ON t1.user_email = t4.cipher_email WHERE t4.cipher_email = ? AND t4.cipher_password = ?
+2020-11-14 18:50:53.879 DEBUG 16720 --- [main] c.inet.code.mapper.UserMapper.getLogin   : ==> Parameters: huchengyea@163.com(String), 202cb962ac59075b964b07152d234b70(String)
+2020-11-14 18:50:53.907 DEBUG 16720 --- [main] c.inet.code.mapper.UserMapper.getLogin   : <==      Total: 1
+2020-11-14 19:00:08.852  INFO 14092 --- [main] com.inet.INetApplicationTests            : Starting INetApplicationTests on DESKTOP-TSJVEJ5 with PID 14092 (started by HCY in D:\8.items\spring-boot-inet-scratch)
+2020-11-14 19:00:08.853 DEBUG 14092 --- [main] com.inet.INetApplicationTests            : Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+2020-11-14 19:00:08.854  INFO 14092 --- [main] com.inet.INetApplicationTests            : No active profile set, falling back to default profiles: default
+2020-11-14 19:00:12.329  WARN 14092 --- [main] d.s.r.o.OperationImplicitParameterReader : Unable to interpret the implicit parameter configuration with dataType: String, dataTypeClass: class java.lang.Void
+2020-11-14 19:00:12.334  WARN 14092 --- [main] d.s.r.o.OperationImplicitParameterReader : Unable to interpret the implicit parameter configuration with dataType: String, dataTypeClass: class java.lang.Void
+2020-11-14 19:00:12.420  INFO 14092 --- [main] com.inet.INetApplicationTests            : Started INetApplicationTests in 3.773 seconds (JVM running for 4.391)
+2020-11-14 19:00:13.065 DEBUG 14092 --- [main] c.inet.code.mapper.UserMapper.getLogin   : ==>  Preparing: SELECT t1.user_uuid AS userUuid, t1.user_buddha AS userBuddha, t1.user_name AS userName, t1.user_email AS userEmail, t1.user_sex AS userSex, t1.user_birthday AS userBirthday, t1.user_city AS userCity, t1.user_signature AS userSignature, t3.role_name AS roleName FROM tbl_user AS t1 LEFT JOIN tbl_power AS t2 ON t1.user_email = t2.power_email LEFT JOIN tbl_role AS t3 ON t2.power_role = t3.role_uuid LEFT JOIN tbl_cipher AS t4 ON t1.user_email = t4.cipher_email WHERE t4.cipher_email = ? AND t4.cipher_password = ?
+2020-11-14 19:00:13.092 DEBUG 14092 --- [main] c.inet.code.mapper.UserMapper.getLogin   : ==> Parameters: huchengyea@163.com(String), 202cb962ac59075b964b07152d234b70(String)
+2020-11-14 19:00:13.120 DEBUG 14092 --- [main] c.inet.code.mapper.UserMapper.getLogin   : <==      Total: 1
