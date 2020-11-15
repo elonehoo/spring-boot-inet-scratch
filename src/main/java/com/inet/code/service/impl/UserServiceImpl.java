@@ -70,7 +70,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Map<String, String> results = new HashMap<>(2);
         results.put("info","登录成功");
         results.put("token",token);
-        System.out.println(results.toString());
         return new Result(
                 200
                 ,"OK"

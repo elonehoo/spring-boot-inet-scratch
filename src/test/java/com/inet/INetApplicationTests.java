@@ -8,6 +8,8 @@ import com.inet.code.entity.User;
 import com.inet.code.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -17,6 +19,12 @@ class INetApplicationTests {
 
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
     @Test
     void contextLoads1() {
@@ -63,7 +71,15 @@ class INetApplicationTests {
         }else {
             System.out.println(2);
         }
+    }
 
+    @Test
+    void configLoads6(){
+        redisTemplate.opsForValue().set("key1","xxy");
+    }
+    @Test
+    void configLoads7(){
+        redisTemplate.delete("key1");
     }
 
 }
