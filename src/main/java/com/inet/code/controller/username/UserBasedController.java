@@ -67,7 +67,21 @@ public class UserBasedController {
                 ,birthday
                 ,city
                 ,signature
-                ,"scratch/userBased/upload");
+                ,"/scratch/userBased/upload");
+    }
+
+    /**
+     * 通过邮箱发送验证码
+     * @return
+     */
+    @GetMapping("/verification")
+    public Result getVerification(@RequestParam(value = "Email",defaultValue = "") String email){
+        return userService.getVerification(email,"/scratch/userBased/upload");
+    }
+
+    @PostMapping("/register")
+    public Result postRegister(){
+        return null;
     }
 
 }

@@ -46,6 +46,12 @@
             <artifactId>hutool-all</artifactId>
             <version>5.4.7</version>
         </dependency>
+        <!--邮箱-->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
         <!-- MyBatisPlus -->
         <dependency>
             <groupId>com.baomidou</groupId>

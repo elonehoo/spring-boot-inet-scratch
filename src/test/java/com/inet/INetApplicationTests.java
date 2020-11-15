@@ -1,9 +1,13 @@
 package com.inet;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestAlgorithm;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.crypto.digest.Digester;
+import cn.hutool.extra.mail.MailAccount;
+import cn.hutool.extra.mail.MailUtil;
 import com.inet.code.entity.User;
 import com.inet.code.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
@@ -77,9 +81,28 @@ class INetApplicationTests {
     void configLoads6(){
         redisTemplate.opsForValue().set("key1","xxy");
     }
+
     @Test
     void configLoads7(){
         redisTemplate.delete("key1");
+    }
+
+    @Test
+    void configLoads8(){
+
+        MailAccount account = new MailAccount();
+        account.setHost("smtp.163.com");
+        account.setPort(25);
+        account.setAuth(true);
+        account.setFrom("huchengyea@163.com");
+        account.setUser("huchengyea");
+        account.setPass("SDZSHTMHUKMVSCRA");
+        MailUtil.send(account,"3522758312@QQ.com", "测试", "邮件来自晓寻遥测试", false);
+    }
+
+    @Test
+    void configLoads9(){
+        System.out.println(RandomUtil.randomString(5));
     }
 
 }

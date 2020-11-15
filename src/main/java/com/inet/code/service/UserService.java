@@ -51,4 +51,14 @@ public interface UserService extends IService<User> {
      * @return Result风格
      */
     Result getUpload(String token, String buddha, String name, Boolean sex, String birthday, String city, String signature, String path);
+
+    /**
+     * 发送邮箱验证码
+     * @author HCY
+     * @since 2020-11-15
+     * @param email 邮箱
+     * @param path URL路径
+     * @return Result风格
+     */
+    Result getVerification(String email, String path);
 }

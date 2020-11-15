@@ -1,7 +1,10 @@
 package com.inet.code.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
+import cn.hutool.extra.mail.MailAccount;
+import cn.hutool.extra.mail.MailUtil;
 import com.inet.code.entity.User;
 import com.inet.code.mapper.UserMapper;
 import com.inet.code.service.UserService;
@@ -144,4 +147,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return new Result(500,"ERROR","错误","修改失败",path);
         }
     }
+
+    /**
+     * 发送邮箱验证码
+     * @author HCY
+     * @since 2020-11-15
+     * @param email 邮箱
+     * @param path URL路径
+     * @return Result风格
+     */
+    @Override
+    public Result getVerification(String email, String path) {
+        //产生验证码
+        String code = RandomUtil.randomString(5);
+        //发送邮件
+        MailAccount account = new MailAccount();
+        account.setHost("smtp.163.com");
+        account.setPort(25);
+        account.setAuth(true);
+        account.setFrom("huchengyea@163.com");
+        account.setUser("huchengyea");
+        account.setPass("SDZSHTMHUKMVSCRA");
+        MailUtil.send(account, email, "测试", "验证码为:" + code, false);
+        //递交返回值
+        Map<String, String> map = new HashMap<>(2);
+        map.put("info","验证码发送成功,请即使签收");
+        return null;
+    }
+
 }
