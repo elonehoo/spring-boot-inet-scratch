@@ -1,5 +1,7 @@
 package com.inet.code.service.impl;
 
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.inet.code.entity.User;
 import com.inet.code.mapper.UserMapper;
@@ -11,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,7 +49,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = userMapper.getLogin(
                 account
                 ,DigestUtil.md5Hex(password));
-
         //账号或者密码错误
         if (user == null){
             return new Result(
@@ -68,6 +70,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Map<String, String> results = new HashMap<>(2);
         results.put("info","登录成功");
         results.put("token",token);
+        System.out.println(results.toString());
         return new Result(
                 200
                 ,"OK"
@@ -107,7 +110,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      * @return Result风格
      */
     @Override
-    public Result getUpload(String token, String buddha, String name, Boolean sex, String birthday, String city, String signature, String path) {
+    public Result getUpload(String token, String buddha, String name, Boolean sex
+            , String birthday, String city, String signature, String path) {
         //通过Token获取用户的具体信息
         User user = (User) redisTemplate.opsForValue().get(token);
         //如果头像为空，则不修改
@@ -115,13 +119,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             user.setUserBuddha(buddha);
         }
         //如果用户名称为空，则不修改
-        if (!("".equals(name))){
-            user.setRoleName(name);
+        if (!"".equals(name)){
+            user.setUserName(name);
         }
-        //如果用户性别不为空
-        if(user.getUserSex() != sex){
-
+        //如果用户性别进行了改变
+        if (!user.getUserSex().equals(sex)){
+            user.setUserSex(sex);
         }
-        return null;
+        //如果用户的生日不为空
+        if (!"".equals(birthday)){
+            user.setUserBirthday(DateUtil.parse(birthday,"yyyy-MM-dd HH:mm:ss"));
+        }
+        //如果地址不为空
+        if (!"".equals(city)){
+            user.setUserCity(city);
+        }
+        //如果个性签名不为空
+        if (!"".equals(signature)){
+            user.setUserSignature(signature);
+        }
+        //进行存储操作
+        boolean consequence = this.updateById(user);
+        //判断是否修改成功
+        if (consequence){
+            return new Result(200,"OK","成功","修改成功",path);
+        }else {
+            return new Result(500,"ERROR","错误","修改失败",path);
+        }
     }
 }

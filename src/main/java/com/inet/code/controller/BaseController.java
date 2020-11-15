@@ -20,8 +20,9 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/based")
+@CrossOrigin
 @Api(tags = {"管理和用户页面的基础操作"},description = "通用模块")
-public class Base {
+public class BaseController {
     @Resource
     private UserService userService;
 

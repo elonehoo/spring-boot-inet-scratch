@@ -3,9 +3,13 @@ package com.inet.code.controller.username;
 import com.inet.code.service.UserService;
 import com.inet.code.utlis.Result;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * BaseController
@@ -14,17 +18,33 @@ import javax.annotation.Resource;
  * @since 2020/11/14
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/userBased")
 @Api(tags = {"用户页面的基础操作"},description = "用户模块")
-public class BaseController {
+public class UserBasedController {
     @Resource
     private UserService userService;
 
+    /**
+     * 用户进行信息的修改
+     * @author HCY
+     * @since 2020-11-14
+     * @param token 令牌
+     * @param buddha 头像
+     * @param name 名字
+     * @param sex 性别
+     * @param birthday 生日
+     * @param city 地址
+     * @param signature 个性签名
+     * @return Result
+     */
+    @ApiOperation("修改操作")
+    @RequiresRoles(value = {"member"})
     @PutMapping("/upload")
     public Result putUpload(@RequestHeader(value = "Token",defaultValue = "") String token,
                             @RequestParam(value = "Buddha",defaultValue = "") String buddha,
                             @RequestParam(value = "Name",defaultValue = "") String name,
-                            @RequestParam(value = "Sex",defaultValue = "") Boolean sex,
+                            @RequestParam(value = "Sex",defaultValue = "true") Boolean sex,
                             @RequestParam(value = "Birthday",defaultValue = "") String birthday,
                             @RequestParam(value = "City",defaultValue = "") String city,
                             @RequestParam(value = "Signature",defaultValue = "") String signature){

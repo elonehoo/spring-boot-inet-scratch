@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @SpringBootTest
 class INetApplicationTests {
@@ -41,6 +42,28 @@ class INetApplicationTests {
         String password = md5.digestHex("123");
         User user = userMapper.getLogin(account, password);
         System.out.println(user);
+    }
+
+    @Test
+    void configLoads4(){
+        Boolean one = true;
+        Boolean two = false;
+        if (!one.equals(two)){
+            System.out.println("1");
+        }else {
+            System.out.println("2");
+        }
+    }
+
+    @Test
+    void configLoads5(){
+        Date date = new Date();
+        if (!date.equals("")){
+            System.out.println(1);
+        }else {
+            System.out.println(2);
+        }
+
     }
 
 }

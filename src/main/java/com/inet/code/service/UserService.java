@@ -4,6 +4,8 @@ import com.inet.code.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.inet.code.utlis.Result;
 
+import java.util.Date;
+
 /**
  * <p>
  *  服务类
@@ -48,5 +50,5 @@ public interface UserService extends IService<User> {
      * @param path URL路径
      * @return Result风格
      */
-    Result getUpload(String token,String buddha, String name, Boolean sex, String birthday, String city, String signature, String path);
+    Result getUpload(String token, String buddha, String name, Boolean sex, String birthday, String city, String signature, String path);
 }

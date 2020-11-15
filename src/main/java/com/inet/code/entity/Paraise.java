@@ -48,14 +48,14 @@ public class Paraise implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(value = "praise_creation")
+    @TableField(value = "praise_creation",update = "NOW()",fill = FieldFill.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date praiseCreation;
 
     /**
      * 修改时间
      */
-    @TableField(value = "praise_modification",update = "NOW()")
+    @TableField(value = "praise_modification",update = "NOW()",fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date praiseModification;
 

@@ -10,9 +10,8 @@ spring:
     password: Hcy05080901
     type: com.alibaba.druid.pool.DruidDataSource
   redis:
-    host: 42.192.41.187
+    host: localhost
     port: 6379
-    password: hcy05080901
   session:
     store-type: redis
   servlet:
