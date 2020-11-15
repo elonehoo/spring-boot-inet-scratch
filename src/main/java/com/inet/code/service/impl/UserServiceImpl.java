@@ -75,4 +75,53 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 ,results
                 ,path);
     }
+
+    /**
+     * 退出
+     * @author HCY
+     * @since 2020-11-14
+     * @param token 令牌
+     * @param path URL路径
+     * @return Result风格
+     */
+    @Override
+    public Result getExit(String token, String path) {
+        if (redisTemplate.delete(token)) {
+            return new Result(200,"OK","成功","退出成功",path);
+        }
+        return  new Result(500,"Error","错误","退出失败",path);
+    }
+
+    /**
+     * 修改用户信息
+     * @author HCY
+     * @since 2020-11-14
+     * @param token 令牌
+     * @param buddha 头像
+     * @param name 用户名字
+     * @param sex 性别
+     * @param birthday 生日
+     * @param city 地址
+     * @param signature 个性签名
+     * @param path URL路径
+     * @return Result风格
+     */
+    @Override
+    public Result getUpload(String token, String buddha, String name, Boolean sex, String birthday, String city, String signature, String path) {
+        //通过Token获取用户的具体信息
+        User user = (User) redisTemplate.opsForValue().get(token);
+        //如果头像为空，则不修改
+        if (!("".equals(buddha))){
+            user.setUserBuddha(buddha);
+        }
+        //如果用户名称为空，则不修改
+        if (!("".equals(name))){
+            user.setRoleName(name);
+        }
+        //如果用户性别不为空
+        if(user.getUserSex() != sex){
+
+        }
+        return null;
+    }
 }
