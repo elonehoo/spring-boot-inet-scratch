@@ -24,10 +24,22 @@ public class Result {
      * 500 - 错误
      */
     private Integer status;
+
+    public static final Integer STATUS_OK_200 = 200;
+    public static final Integer STATUS_ILLEGAL_401 = 401;
+    public static final Integer STATUS_BAN_403 = 403;
+    public static final Integer STATUS_NOT_FOUND_404 = 404;
+    public static final Integer STATUS_ERROR_500 = 500;
+
+    public static final String INFO_OK_200 = "OK";
+    public static final String INFO_ILLEGAL_401 = "ILLEGAL";
+    public static final String INFO_BAN_403 = "BAN";
+    public static final String INFO_NOT_FOUND_404 = "NOT FOUNT";
+    public static final String INFO_ERROR_500 = "ERROR";
     /**
      * 错误信息
      */
-    private String error;
+    private String info;
     /**
      * 错误详情
      */
@@ -52,15 +64,15 @@ public class Result {
      * @author HCY
      * @since 2020-10-29
      * @param status
-     * @param error
+     * @param info
      * @param trace
      * @param message
      * @param path
      */
-    public Result( Integer status, String error, String trace, Object message, String path) {
+    public Result( Integer status, String info, String trace, Object message, String path) {
         this.timestamp = new Date();
         this.status = status;
-        this.error = error;
+        this.info = info;
         this.trace = trace;
         this.message = message;
         this.path = path;
@@ -82,12 +94,12 @@ public class Result {
         this.status = status;
     }
 
-    public String getError() {
-        return error;
+    public String getInfo() {
+        return info;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setInfo(String error) {
+        this.info = error;
     }
 
     public String getTrace() {
@@ -119,7 +131,7 @@ public class Result {
         return "Result{" +
                 "timestamp=" + timestamp +
                 ", status=" + status +
-                ", error='" + error + '\'' +
+                ", info='" + info + '\'' +
                 ", trace='" + trace + '\'' +
                 ", message='" + message + '\'' +
                 ", path='" + path + '\'' +

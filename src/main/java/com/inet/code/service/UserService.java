@@ -61,4 +61,14 @@ public interface UserService extends IService<User> {
      * @return Result风格
      */
     Result getVerification(String email, String path);
+
+    /**
+     * 判断邮箱是否重复
+     * @author HCY
+     * @since 2020-11-15
+     * @param email 邮箱
+     * @param path URL路径
+     * @return Result风格
+     */
+    Result getEmailRepeat(String email,String path);
 }

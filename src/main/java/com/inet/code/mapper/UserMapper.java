@@ -22,4 +22,11 @@ public interface UserMapper extends BaseMapper<User> {
      * @return User实体类
      */
     User getLogin(String account, String password);
+
+    /**
+     * 判断邮箱是否重复
+     * @param email 邮箱
+     * @return User实体类
+     */
+    User getEMailRepeat(String email);
 }

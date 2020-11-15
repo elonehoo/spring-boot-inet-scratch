@@ -53,8 +53,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //账号或者密码错误
         if (user == null){
             return new Result(
-                    404
-                    ,"not found"
+                    Result.STATUS_NOT_FOUND_404
+                    ,Result.INFO_NOT_FOUND_404
                     ,"未找到"
                     ,"您的账号或者密码错误"
                     ,path);
@@ -72,8 +72,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         results.put("info","登录成功");
         results.put("token",token);
         return new Result(
-                200
-                ,"OK"
+                Result.STATUS_OK_200
+                ,Result.INFO_OK_200
                 ,"成功"
                 ,results
                 ,path);
@@ -90,9 +90,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Result getExit(String token, String path) {
         if (redisTemplate.delete(token)) {
-            return new Result(200,"OK","成功","退出成功",path);
+            return new Result(
+                    Result.STATUS_OK_200
+                    ,Result.INFO_OK_200
+                    ,"成功"
+                    ,"退出成功"
+                    ,path);
         }
-        return  new Result(500,"Error","错误","退出失败",path);
+        return  new Result(
+                Result.STATUS_ERROR_500
+                ,Result.INFO_ERROR_500
+                ,"错误"
+                ,"退出失败"
+                ,path);
     }
 
     /**
@@ -142,9 +152,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         boolean consequence = this.updateById(user);
         //判断是否修改成功
         if (consequence){
-            return new Result(200,"OK","成功","修改成功",path);
+            return new Result(
+                    Result.STATUS_OK_200
+                    ,Result.INFO_OK_200
+                    ,"成功"
+                    ,"修改成功"
+                    ,path);
         }else {
-            return new Result(500,"ERROR","错误","修改失败",path);
+            return new Result(
+                    Result.STATUS_ERROR_500
+                    ,Result.INFO_ERROR_500
+                    ,"错误"
+                    ,"修改失败"
+                    ,path);
         }
     }
 
@@ -158,6 +178,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public Result getVerification(String email, String path) {
+        //判断邮箱是否重复
+        Result emailRepeat = this.getEmailRepeat(email, path);
+        //判断邮箱是否重复
+        if (!emailRepeat.getStatus().equals(Result.STATUS_OK_200)){
+            return emailRepeat;
+        }
         //产生验证码
         String code = RandomUtil.randomString(5);
         //发送邮件
@@ -173,6 +199,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Map<String, String> map = new HashMap<>(2);
         map.put("info","验证码发送成功,请即使签收");
         return null;
+    }
+
+    /**
+     * 判断邮箱是否重复
+     * @author HCY
+     * @since 2020-11-15
+     * @param email 邮箱
+     * @param path URL路径
+     * @return Result风格
+     */
+    @Override
+    public Result getEmailRepeat(String email, String path) {
+        if (userMapper.getEMailRepeat(email) == null){
+            return new Result(Result.STATUS_ERROR_500,Result.INFO_ERROR_500,"错误","邮箱产生了重复",path);
+        }
+        return new Result(Result.STATUS_OK_200,Result.INFO_OK_200,"成功","邮箱未产生重复",path);
     }
 
 }

@@ -20,4 +20,21 @@
                 LEFT JOIN tbl_cipher AS t4 ON t1.user_email = t4.cipher_email
         WHERE t4.cipher_email = #{account} AND t4.cipher_password = #{password}
     </select>
+    <!--判断邮箱是否重复-->
+    <select id="getEMailRepeat" resultType="com.inet.code.entity.User">
+        SELECT
+            user_uuid AS userUuid,
+            user_buddha AS userBuddha,
+            user_name AS userName,
+            user_email AS userEmail,
+            user_sex AS userSex,
+            user_birthday AS userBirthday,
+            user_city AS userCity,
+            user_signature AS userSignature
+        FROM
+            tbl_user
+        WHERE
+            user_email = #{email}
+        LIMIT 1;
+    </select>
 </mapper>
