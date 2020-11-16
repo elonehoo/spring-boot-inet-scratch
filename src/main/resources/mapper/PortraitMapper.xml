@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.inet.code.mapper.PortraitMapper">
-
+    <!--随机产生一个头像网址-->
+    <select id="getRandomImages" resultType="com.inet.code.entity.Portrait">
+        SELECT
+            portrait_uuid AS portraitUuid,
+            portrait_src AS portraitSrc,
+            portrait_creation AS portraitCreation,
+            portrait_modification AS portraitModification
+        FROM
+            tbl_portrait
+        LIMIT #{randomInt},1;
+    </select>
 </mapper>

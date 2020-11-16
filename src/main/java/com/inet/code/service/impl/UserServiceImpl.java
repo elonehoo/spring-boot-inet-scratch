@@ -6,9 +6,11 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
+import com.inet.code.entity.Cipher;
+import com.inet.code.entity.Power;
 import com.inet.code.entity.User;
 import com.inet.code.mapper.UserMapper;
-import com.inet.code.service.UserService;
+import com.inet.code.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.inet.code.utlis.FromMailUtil;
 import com.inet.code.utlis.JwtUtils;
@@ -37,6 +39,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
+
+    @Resource
+    private PortraitService portraitService;
+
+    @Resource
+    private CipherService cipherService;
+
+    @Resource
+    private RoleService roleService;
+
+    @Resource
+    private PowerService powerService;
 
     /**
      * 登录操作
@@ -286,6 +300,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                     ,"邮箱不合法"
                     ,path);
         }
+        //判断邮箱是否重复
+        Result emailRepeat = this.getEmailRepeat(email, path);
+        //判断邮箱是否重复
+        if (!emailRepeat.getStatus().equals(Result.STATUS_OK_200)){
+            return emailRepeat;
+        }
         //判断验证码是否正确
         String verification = (String) redisTemplate.opsForValue().get(email);
         if (!verification.equals(code)){
@@ -307,8 +327,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         //进行注册操作，注册的用户权限为 ： member
         User user = new User();
-
-        return null;
+        user.setUserBuddha(portraitService.getRandomImagesUrl().getPortraitSrc());
+        user.setUserName(email);
+        user.setUserEmail(email);
+        this.save(user);
+        //设置密码
+        Cipher cipher = new Cipher();
+        cipher.setCipherEmail(email);
+        cipher.setCipherPassword(DigestUtil.md5Hex(password));
+        cipherService.save(cipher);
+        //设置权限 - member
+        Power power = new Power();
+        power.setPowerEmail(email);
+        power.setPowerRole(roleService.getRoleName("member").getRoleUuid());
+        powerService.save(power);
+        return new Result(
+                Result.STATUS_OK_200
+                ,Result.INFO_OK_200
+                ,Result.DETAILS_OK_200
+                ,"注册成功"
+                ,path);
     }
 
 }
