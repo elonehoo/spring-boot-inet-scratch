@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -66,7 +67,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //产生 token
         String token = JwtUtils.getToken(map);
         //存入 Redis
-        redisTemplate.opsForValue().set(token,user);
+        redisTemplate.opsForValue().set(token,user,7, TimeUnit.DAYS);
         //创建返回值
         Map<String, String> results = new HashMap<>(2);
         results.put("info","登录成功");
@@ -93,14 +94,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return new Result(
                     Result.STATUS_OK_200
                     ,Result.INFO_OK_200
-                    ,"成功"
+                    ,Result.DETAILS_OK_200
                     ,"退出成功"
                     ,path);
         }
         return  new Result(
                 Result.STATUS_ERROR_500
                 ,Result.INFO_ERROR_500
-                ,"错误"
+                ,Result.DETAILS_ERROR_500
                 ,"退出失败"
                 ,path);
     }
@@ -155,14 +156,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return new Result(
                     Result.STATUS_OK_200
                     ,Result.INFO_OK_200
-                    ,"成功"
+                    ,Result.DETAILS_OK_200
                     ,"修改成功"
                     ,path);
         }else {
             return new Result(
                     Result.STATUS_ERROR_500
                     ,Result.INFO_ERROR_500
-                    ,"错误"
+                    ,Result.DETAILS_ERROR_500
                     ,"修改失败"
                     ,path);
         }
@@ -194,11 +195,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         account.setFrom("huchengyea@163.com");
         account.setUser("huchengyea");
         account.setPass("SDZSHTMHUKMVSCRA");
-        MailUtil.send(account, email, "测试", "验证码为:" + code, false);
+        MailUtil.send(account, email, "XXX社区验证码", "验证码为:" + code + ",有效时长为5分钟", false);
+        //将验证码存入Redis
+        redisTemplate.opsForValue().set(email,code,60 * 5 , TimeUnit.SECONDS);
         //递交返回值
-        Map<String, String> map = new HashMap<>(2);
-        map.put("info","验证码发送成功,请即使签收");
-        return null;
+        return new Result(
+                Result.STATUS_OK_200
+                ,Result.INFO_OK_200
+                ,Result.DETAILS_OK_200
+                ,"验证码发送成功"
+                ,path);
     }
 
     /**
@@ -212,9 +218,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Result getEmailRepeat(String email, String path) {
         if (userMapper.getEMailRepeat(email) == null){
-            return new Result(Result.STATUS_ERROR_500,Result.INFO_ERROR_500,"错误","邮箱产生了重复",path);
+            return new Result(Result.STATUS_ERROR_500,Result.INFO_ERROR_500,Result.DETAILS_ERROR_500,"邮箱产生了重复",path);
         }
-        return new Result(Result.STATUS_OK_200,Result.INFO_OK_200,"成功","邮箱未产生重复",path);
+        return new Result(Result.STATUS_OK_200,Result.INFO_OK_200, Result.DETAILS_OK_200,"邮箱未产生重复",path);
     }
 
 }

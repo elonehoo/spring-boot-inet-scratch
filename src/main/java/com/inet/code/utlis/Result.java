@@ -31,19 +31,26 @@ public class Result {
     public static final Integer STATUS_NOT_FOUND_404 = 404;
     public static final Integer STATUS_ERROR_500 = 500;
 
+    /**
+     * 信息
+     */
+    private String info;
+
     public static final String INFO_OK_200 = "OK";
     public static final String INFO_ILLEGAL_401 = "ILLEGAL";
     public static final String INFO_BAN_403 = "BAN";
     public static final String INFO_NOT_FOUND_404 = "NOT FOUNT";
     public static final String INFO_ERROR_500 = "ERROR";
     /**
-     * 错误信息
+     * 详情
      */
-    private String info;
-    /**
-     * 错误详情
-     */
-    private String trace;
+    private String details;
+
+    public static final String DETAILS_OK_200 = "成功";
+    public static final String DETAILS_ILLEGAL_401 = "非法的";
+    public static final String DETAILS_BAN_403 = "禁止的";
+    public static final String DETAILS_NOT_FOUND_404 = "未找到";
+    public static final String DETAILS_ERROR_500 = "错误";
     /**
      * 返回信息
      */
@@ -73,7 +80,7 @@ public class Result {
         this.timestamp = new Date();
         this.status = status;
         this.info = info;
-        this.trace = trace;
+        this.details = trace;
         this.message = message;
         this.path = path;
     }
@@ -102,12 +109,12 @@ public class Result {
         this.info = error;
     }
 
-    public String getTrace() {
-        return trace;
+    public String getDetails() {
+        return details;
     }
 
-    public void setTrace(String trace) {
-        this.trace = trace;
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public Object getMessage() {
@@ -132,7 +139,7 @@ public class Result {
                 "timestamp=" + timestamp +
                 ", status=" + status +
                 ", info='" + info + '\'' +
-                ", trace='" + trace + '\'' +
+                ", details='" + details + '\'' +
                 ", message='" + message + '\'' +
                 ", path='" + path + '\'' +
                 '}';
