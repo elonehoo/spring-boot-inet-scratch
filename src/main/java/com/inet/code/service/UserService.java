@@ -71,4 +71,16 @@ public interface UserService extends IService<User> {
      * @return Result风格
      */
     Result getEmailRepeat(String email,String path);
+
+    /**
+     * 通过邮箱注册
+     * @author HCY
+     * @since 2020-11-16
+     * @param email 邮箱
+     * @param code 验证码
+     * @param password 密码
+     * @param path URL路径
+     * @return Result风格
+     */
+    Result getRegister(String email, String code, String password, String path);
 }

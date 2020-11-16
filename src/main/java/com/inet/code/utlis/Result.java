@@ -51,6 +51,7 @@ public class Result {
     public static final String DETAILS_BAN_403 = "禁止的";
     public static final String DETAILS_NOT_FOUND_404 = "未找到";
     public static final String DETAILS_ERROR_500 = "错误";
+
     /**
      * 返回信息
      */
@@ -72,15 +73,15 @@ public class Result {
      * @since 2020-10-29
      * @param status
      * @param info
-     * @param trace
+     * @param details
      * @param message
      * @param path
      */
-    public Result( Integer status, String info, String trace, Object message, String path) {
+    public Result( Integer status, String info, String details, Object message, String path) {
         this.timestamp = new Date();
         this.status = status;
         this.info = info;
-        this.details = trace;
+        this.details = details;
         this.message = message;
         this.path = path;
     }

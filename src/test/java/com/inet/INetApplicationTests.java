@@ -1,6 +1,7 @@
 package com.inet;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestAlgorithm;
@@ -103,6 +104,13 @@ class INetApplicationTests {
     @Test
     void configLoads9(){
         System.out.println(RandomUtil.randomString(5));
+    }
+
+    @Test
+    void configLoads10(){
+//        System.out.println(Validator.isEmail("2414776185"));
+        String password = "hcy123";
+        System.out.println(Validator.isGeneral(password));
     }
 
 }

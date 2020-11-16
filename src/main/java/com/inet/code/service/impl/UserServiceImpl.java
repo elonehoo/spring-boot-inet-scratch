@@ -1,6 +1,7 @@
 package com.inet.code.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.extra.mail.MailAccount;
@@ -9,6 +10,7 @@ import com.inet.code.entity.User;
 import com.inet.code.mapper.UserMapper;
 import com.inet.code.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.inet.code.utlis.FromMailUtil;
 import com.inet.code.utlis.JwtUtils;
 import com.inet.code.utlis.Result;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -56,7 +58,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return new Result(
                     Result.STATUS_NOT_FOUND_404
                     ,Result.INFO_NOT_FOUND_404
-                    ,"未找到"
+                    ,Result.DETAILS_NOT_FOUND_404
                     ,"您的账号或者密码错误"
                     ,path);
         }
@@ -179,6 +181,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public Result getVerification(String email, String path) {
+        //判断邮箱是否合法
+        if (!Validator.isEmail(email)) {
+            return new Result(
+                    Result.STATUS_ILLEGAL_401
+                    ,Result.INFO_ILLEGAL_401
+                    ,Result.DETAILS_ILLEGAL_401
+                    ,"邮箱不合法，无法进行发送验证码"
+                    ,path);
+        }
         //判断邮箱是否重复
         Result emailRepeat = this.getEmailRepeat(email, path);
         //判断邮箱是否重复
@@ -187,17 +198,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         //产生验证码
         String code = RandomUtil.randomString(5);
+        //设置邮件的内容
+        MailAccount account = this.getMail();
         //发送邮件
-        MailAccount account = new MailAccount();
-        account.setHost("smtp.163.com");
-        account.setPort(25);
-        account.setAuth(true);
-        account.setFrom("huchengyea@163.com");
-        account.setUser("huchengyea");
-        account.setPass("SDZSHTMHUKMVSCRA");
-        MailUtil.send(account, email, "XXX社区验证码", "验证码为:" + code + ",有效时长为5分钟", false);
+        MailUtil.send(
+                account
+                , email
+                , "博语兼程社区验证码"
+                , "注册验证码为:" + code + ",有效时长为5分钟"
+                , false);
         //将验证码存入Redis
-        redisTemplate.opsForValue().set(email,code,60 * 5 , TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(
+                email
+                ,code
+                ,60 * 5
+                ,TimeUnit.SECONDS);
         //递交返回值
         return new Result(
                 Result.STATUS_OK_200
@@ -205,6 +220,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 ,Result.DETAILS_OK_200
                 ,"验证码发送成功"
                 ,path);
+    }
+
+    /**
+     * 设置邮箱的配置文件
+     * @author HCY
+     * @since 2020-11-16
+     * @return MailAccount
+     */
+    private MailAccount getMail() {
+        MailAccount account = new MailAccount();
+        account.setHost(FromMailUtil.HOST);
+        account.setPort(FromMailUtil.PORT);
+        account.setAuth(true);
+        account.setFrom(FromMailUtil.FROM);
+        account.setUser(FromMailUtil.USER);
+        account.setPass(FromMailUtil.PASS);
+        return account;
     }
 
     /**
@@ -218,9 +250,65 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Result getEmailRepeat(String email, String path) {
         if (userMapper.getEMailRepeat(email) == null){
-            return new Result(Result.STATUS_ERROR_500,Result.INFO_ERROR_500,Result.DETAILS_ERROR_500,"邮箱产生了重复",path);
+            return new Result(
+                    Result.STATUS_ERROR_500
+                    ,Result.INFO_ERROR_500
+                    ,Result.DETAILS_ERROR_500
+                    ,"邮箱产生了重复"
+                    ,path);
         }
-        return new Result(Result.STATUS_OK_200,Result.INFO_OK_200, Result.DETAILS_OK_200,"邮箱未产生重复",path);
+        return new Result(
+                Result.STATUS_OK_200
+                ,Result.INFO_OK_200
+                , Result.DETAILS_OK_200
+                ,"邮箱未产生重复"
+                ,path);
+    }
+
+    /**
+     * 通过邮箱注册
+     * @author HCY
+     * @since 2020-11-16
+     * @param email 邮箱
+     * @param code 验证码
+     * @param password 密码
+     * @param path URL路径
+     * @return Result风格
+     */
+    @Override
+    public Result getRegister(String email, String code, String password, String path) {
+        //判断邮箱是否合法
+        if (!Validator.isEmail(email)){
+            return new Result(
+                    Result.STATUS_ILLEGAL_401
+                    ,Result.INFO_ILLEGAL_401
+                    ,Result.DETAILS_ILLEGAL_401
+                    ,"邮箱不合法"
+                    ,path);
+        }
+        //判断验证码是否正确
+        String verification = (String) redisTemplate.opsForValue().get(email);
+        if (!verification.equals(code)){
+            return new Result(
+                    Result.STATUS_BAN_403
+                    ,Result.INFO_BAN_403
+                    ,Result.DETAILS_BAN_403
+                    ,"验证码错误"
+                    ,path);
+        }
+        //判断密码是否合法
+        if (! Validator.isGeneral(password)) {
+            return new Result(
+                    Result.STATUS_ILLEGAL_401
+                    ,Result.INFO_ILLEGAL_401
+                    ,Result.DETAILS_ILLEGAL_401
+                    ,"密码格式不正确，需要包含大写字母，小写字母，数字"
+                    ,path);
+        }
+        //进行注册操作，注册的用户权限为 ： member
+        User user = new User();
+
+        return null;
     }
 
 }

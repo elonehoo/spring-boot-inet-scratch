@@ -72,16 +72,38 @@ public class UserBasedController {
 
     /**
      * 通过邮箱发送验证码
-     * @return
+     * @author HCY
+     * @since 2020-11-16
+     * @param email 邮箱
+     * @return Result
      */
+    @ApiOperation("通过邮箱发送验证码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="Email",value="邮箱",dataType="String", paramType = "query"),
+    })
     @GetMapping("/verification")
     public Result getVerification(@RequestParam(value = "Email",defaultValue = "") String email){
         return userService.getVerification(email,"/scratch/userBased/upload");
     }
 
+    /**
+     * 完成验证码之后的注册请求
+     * @author HCY
+     * @since 2020-11-16
+     * @param email 邮箱
+     * @param code 验证码
+     * @param password 密码
+     * @return Result
+     */
     @PostMapping("/register")
-    public Result postRegister(){
-        return null;
+    public Result postRegister(@RequestParam(value = "Email",defaultValue = "") String email,
+                               @RequestParam(value = "Code",defaultValue = "") String code,
+                               @RequestParam(value = "Password",defaultValue = "") String password){
+        return userService.getRegister(
+                email
+                ,code
+                ,password
+                ,"/scratch/userBased/register");
     }
 
 }
