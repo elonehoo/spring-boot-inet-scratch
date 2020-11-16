@@ -47,7 +47,7 @@ public class Attention implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(value = "attention_creation",fill = FieldFill.INSERT)
+    @TableField(value = "attention_creation")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date attentionCreation;
 

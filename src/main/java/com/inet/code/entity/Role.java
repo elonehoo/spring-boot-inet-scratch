@@ -42,7 +42,7 @@ public class Role implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(value = "role_creation",update = "NOW()",fill = FieldFill.INSERT)
+    @TableField(value = "role_creation")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date roleCreation;
 

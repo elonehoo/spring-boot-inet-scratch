@@ -19,6 +19,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -263,7 +264,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public Result getEmailRepeat(String email, String path) {
-        if (userMapper.getEMailRepeat(email) == null){
+        if (userMapper.getEMailRepeat(email) != null){
             return new Result(
                     Result.STATUS_ERROR_500
                     ,Result.INFO_ERROR_500
@@ -330,22 +331,88 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setUserBuddha(portraitService.getRandomImagesUrl().getPortraitSrc());
         user.setUserName(email);
         user.setUserEmail(email);
+        user.setUserCreation(new Date());
+        user.setUserModification(new Date());
         this.save(user);
         //设置密码
         Cipher cipher = new Cipher();
         cipher.setCipherEmail(email);
         cipher.setCipherPassword(DigestUtil.md5Hex(password));
+        cipher.setCipherCreation(new Date());
+        cipher.setCipherModification(new Date());
         cipherService.save(cipher);
         //设置权限 - member
         Power power = new Power();
         power.setPowerEmail(email);
         power.setPowerRole(roleService.getRoleName("member").getRoleUuid());
+        power.setPowerCreation(new Date());
+        power.setPowerModification(new Date());
         powerService.save(power);
         return new Result(
                 Result.STATUS_OK_200
                 ,Result.INFO_OK_200
                 ,Result.DETAILS_OK_200
                 ,"注册成功"
+                ,path);
+    }
+
+    /**
+     * 进行密码的修改
+     * @author HCY
+     * @since 2020-11-16
+     * @param token 令牌
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @param path URL路径
+     * @return Result风格
+     */
+    @Override
+    public Result getChangePassword(String token, String oldPassword, String newPassword, String path) {
+        User user = (User) redisTemplate.opsForValue().get(token);
+        //判断token是否有用户
+        if (user == null){
+            return new Result(
+                    Result.STATUS_ILLEGAL_401
+                    ,Result.INFO_ILLEGAL_401
+                    ,Result.DETAILS_ILLEGAL_401
+                    ,"尚未找到用户"
+                    ,path);
+        }
+        //取出密码
+        Cipher userCipher = cipherService.getByEmail(user.getUserEmail());
+        //判断旧密码是否正确
+        if (! userCipher.getCipherPassword().equals(DigestUtil.md5Hex(oldPassword))){
+            return new Result(
+                    Result.STATUS_NOT_FOUND_404
+                    ,Result.INFO_NOT_FOUND_404
+                    ,Result.DETAILS_NOT_FOUND_404
+                    ,"旧密码不正确"
+                    ,path);
+        }
+        //判断新密码是否符合密码规范
+        if (! Validator.isGeneral(newPassword)) {
+            return new Result(
+                    Result.STATUS_ILLEGAL_401
+                    ,Result.INFO_ILLEGAL_401
+                    ,Result.DETAILS_ILLEGAL_401
+                    ,"密码格式不正确，需要包含大写字母，小写字母，数字"
+                    ,path);
+        }
+        //进行密码的修改
+        userCipher.setCipherPassword(DigestUtil.md5Hex(newPassword));
+        if ( ! cipherService.updateById(userCipher)){
+            return new Result(
+                    Result.STATUS_ERROR_500
+                    ,Result.INFO_ERROR_500
+                    ,Result.DETAILS_ERROR_500
+                    ,"修改失败"
+                    ,path);
+        }
+        return new Result(
+                Result.STATUS_OK_200
+                ,Result.INFO_OK_200
+                ,Result.DETAILS_OK_200
+                ,"修改成功"
                 ,path);
     }
 

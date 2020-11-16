@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.inet.code.mapper.CipherMapper">
-
+    <!--通过邮箱查找用户的密码-->
+    <select id="getByEmail" resultType="com.inet.code.entity.Cipher">
+        SELECT
+            cipher_uuid AS cipherUuid,
+            cipher_email AS cipherEmail,
+            cipher_password AS cipherPassword,
+            cipher_creation AS cipherCreation,
+            cipher_modification AS cipherModification
+        FROM
+            tbl_cipher
+        WHERE
+            cipher_email = #{userEmail};
+    </select>
 </mapper>

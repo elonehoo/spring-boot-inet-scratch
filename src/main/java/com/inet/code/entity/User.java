@@ -76,7 +76,7 @@ public class User implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(value = "user_creation",update = "NOW()",fill = FieldFill.INSERT)
+    @TableField(value = "user_creation")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date userCreation;
 

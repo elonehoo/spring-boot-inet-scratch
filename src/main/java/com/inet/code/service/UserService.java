@@ -83,4 +83,16 @@ public interface UserService extends IService<User> {
      * @return Result风格
      */
     Result getRegister(String email, String code, String password, String path);
+
+    /**
+     * 进行密码的修改
+     * @author HCY
+     * @since 2020-11-16
+     * @param token 令牌
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @param path URL路径
+     * @return Result风格
+     */
+    Result getChangePassword(String token, String oldPassword, String newPassword, String path);
 }

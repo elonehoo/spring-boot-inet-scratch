@@ -95,6 +95,12 @@ public class UserBasedController {
      * @param password 密码
      * @return Result
      */
+    @ApiOperation("完成验证码之后的注册请求")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="Email",value="邮箱",dataType="String", paramType = "query"),
+            @ApiImplicitParam(name="Code",value="验证码",dataType="String", paramType = "query"),
+            @ApiImplicitParam(name="Password",value="密码",dataType="String", paramType = "query"),
+    })
     @PostMapping("/register")
     public Result postRegister(@RequestParam(value = "Email",defaultValue = "") String email,
                                @RequestParam(value = "Code",defaultValue = "") String code,
@@ -103,6 +109,32 @@ public class UserBasedController {
                 email
                 ,code
                 ,password
+                ,"/scratch/userBased/register");
+    }
+
+    /**
+     * 修改密码操作
+     * @author HCY
+     * @since 2020-11-16
+     * @param token 令牌
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @return Result
+     */
+    @ApiOperation("进行密码的修改")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="OldPassword",value="旧密码",dataType="String", paramType = "query"),
+            @ApiImplicitParam(name="NewPassword",value="新密码",dataType="String", paramType = "query"),
+    })
+    @RequiresRoles(value = {"member"})
+    @PutMapping("/change")
+    public Result putChange(@RequestHeader(value = "Token",defaultValue = "") String token,
+                            @RequestParam(value = "OldPassword",defaultValue = "") String oldPassword,
+                            @RequestParam(value = "NewPassword",defaultValue = "") String newPassword){
+        return userService.getChangePassword(
+                token
+                ,oldPassword
+                ,newPassword
                 ,"/scratch/userBased/register");
     }
 

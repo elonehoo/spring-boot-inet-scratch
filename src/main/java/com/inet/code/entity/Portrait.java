@@ -42,7 +42,7 @@ public class Portrait implements Serializable {
     /**
      * 默认头像的创建时间
      */
-    @TableField(value = "portrait_creation",update = "NOW()",fill = FieldFill.INSERT)
+    @TableField(value = "portrait_creation")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date portraitCreation;
 

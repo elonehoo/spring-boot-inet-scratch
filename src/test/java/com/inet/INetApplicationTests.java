@@ -18,6 +18,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 class INetApplicationTests {
@@ -80,7 +81,7 @@ class INetApplicationTests {
 
     @Test
     void configLoads6(){
-        redisTemplate.opsForValue().set("key1","xxy");
+        redisTemplate.opsForValue().set("key1","hcy",60*5, TimeUnit.SECONDS);
     }
 
     @Test
@@ -113,4 +114,10 @@ class INetApplicationTests {
         System.out.println(Validator.isGeneral(password));
     }
 
+    @Test
+    void configLoads11(){
+        User user = (User) redisTemplate.opsForValue().get("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6IjI0MTQ3NzYxODVAcXEuY29tIiwiZXhwIjoxNjA2MTQ0Mzk2LCJ1c2VySWQiOiIzZDI4MzQ2ODMxNzBhMzY5ZWU0Njk1ZDFiZTA2MzY3NyJ9.uqMdZBUJqgS5O-GCokpeEQmg6fIzgx9yroRaymlwwUY");
+        System.out.println(user.getUserName());
+        System.out.println(user.getRoleName());
+    }
 }
