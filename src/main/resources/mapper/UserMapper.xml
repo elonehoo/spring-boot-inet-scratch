@@ -37,4 +37,23 @@
             user_email = #{email}
         LIMIT 1;
     </select>
+    <!--通过邮箱查找用户，一般用户判断关注或者点赞的用户是否存在-->
+    <select id="getByEmail" resultType="com.inet.code.entity.User">
+        SELECT
+            user_uuid AS userUuid,
+            user_buddha AS userBuddha,
+            user_name AS userName,
+            user_email AS userEmail,
+            user_sex AS userSex,
+            user_birthday AS userBirthday,
+            user_city AS userCity,
+            user_signature AS userSignature,
+            user_creation AS userCreation,
+            user_modification AS userModification
+        FROM
+            tbl_user
+        WHERE
+            user_email = #{focusEmail}
+            LIMIT 1
+    </select>
 </mapper>

@@ -83,7 +83,9 @@ public class UserBasedController {
     })
     @GetMapping("/verification")
     public Result getVerification(@RequestParam(value = "Email",defaultValue = "") String email){
-        return userService.getVerification(email,"/scratch/userBased/upload");
+        return userService.getVerification(
+                email
+                ,"/scratch/userBased/upload");
     }
 
     /**
@@ -136,6 +138,28 @@ public class UserBasedController {
                 ,oldPassword
                 ,newPassword
                 ,"/scratch/userBased/register");
+    }
+
+    /**
+     * 关注某一个用户
+     * @author HCY
+     * @since 2020-11-17
+     * @param token 令牌
+     * @param focusEmail 关注的邮箱
+     * @return
+     */
+    @ApiOperation("关注某一个用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="FocusEmail",value="关注的邮箱",dataType="String", paramType = "query"),
+    })
+    @RequiresRoles(value = {"member"})
+    @PutMapping("/focus")
+    public Result putFocus(@RequestHeader(value = "Token",defaultValue = "") String token,
+                           @RequestParam(value = "FocusEmail",defaultValue = "") String focusEmail){
+        return userService.getFocus(
+                token
+                ,focusEmail
+                ,"scratch/userBased/register");
     }
 
 }

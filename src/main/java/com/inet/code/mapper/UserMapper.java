@@ -29,4 +29,13 @@ public interface UserMapper extends BaseMapper<User> {
      * @return User实体类
      */
     User getEMailRepeat(String email);
+
+    /**
+     * 通过邮箱查找用户，一般用户判断关注或者点赞的用户是否存在
+     * @author HCY
+     * @since 2020-11-17
+     * @param focusEmail 关注者邮箱
+     * @return User实体类
+     */
+    User getByEmail(String focusEmail);
 }

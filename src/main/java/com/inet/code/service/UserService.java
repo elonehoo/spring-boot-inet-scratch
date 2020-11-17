@@ -95,4 +95,15 @@ public interface UserService extends IService<User> {
      * @return Result风格
      */
     Result getChangePassword(String token, String oldPassword, String newPassword, String path);
+
+    /**
+     * 进行关注处理
+     * @author HCY
+     * @since 2020-11-16
+     * @param token 令牌
+     * @param focusEmail 关注者邮箱
+     * @param path URL路径
+     * @return Result风格
+     */
+    Result getFocus(String token, String focusEmail, String path);
 }

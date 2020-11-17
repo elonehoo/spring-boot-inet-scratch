@@ -113,6 +113,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
+
     }
 
 }

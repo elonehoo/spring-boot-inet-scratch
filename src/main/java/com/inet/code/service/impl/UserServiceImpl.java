@@ -6,6 +6,7 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
+import com.inet.code.entity.Attention;
 import com.inet.code.entity.Cipher;
 import com.inet.code.entity.Power;
 import com.inet.code.entity.User;
@@ -52,6 +53,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Resource
     private PowerService powerService;
+
+    @Resource
+    private AttentionService attentionService;
 
     /**
      * 登录操作
@@ -414,6 +418,75 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 ,Result.DETAILS_OK_200
                 ,"修改成功"
                 ,path);
+    }
+
+    /**
+     * 进行关注处理
+     * @author HCY
+     * @since 2020-11-16
+     * @param token 令牌
+     * @param focusEmail 关注者邮箱
+     * @param path URL路径
+     * @return Result风格
+     */
+    @Override
+    public Result getFocus(String token, String focusEmail, String path) {
+        //通过 token 获取用户 user
+        User user = (User) redisTemplate.opsForValue().get(token);
+        System.out.println("user的email ； " + user.getUserEmail());
+        System.out.println("是否相等 ： " + user.getUserEmail().equals(focusEmail));
+        //判断user是否存在
+        if (user == null){
+            return new Result(
+                    Result.STATUS_NOT_FOUND_404
+                    ,Result.INFO_NOT_FOUND_404
+                    ,Result.DETAILS_NOT_FOUND_404
+                    ,"用户不正确，请重新登陆"
+                    ,path);
+        }
+        //判断需要关注的用户是否存在
+        if (userMapper.getByEmail(focusEmail) == null){
+            return new Result(
+                    Result.STATUS_NOT_FOUND_404
+                    ,Result.INFO_NOT_FOUND_404
+                    ,Result.DETAILS_NOT_FOUND_404
+                    ,"关注的用户不存在，请刷新页面在进行关注"
+                    ,path);
+        }
+        //判断是否在关注自己
+        if (user.getUserEmail().equals(focusEmail)){
+            return new Result(
+                    Result.STATUS_ILLEGAL_401
+                    ,Result.INFO_ILLEGAL_401
+                    ,Result.DETAILS_ILLEGAL_401
+                    ,"自己无法关注自己了哦！"
+                    ,path);
+        }
+        //进行关注
+        Attention attention = new Attention();
+        //设置关注者的邮箱
+        attention.setAttentionConcern(focusEmail);
+        //设置自己的邮箱
+        attention.setAttentionEmail(user.getUserEmail());
+        //设置时间
+        attention.setAttentionCreation(new Date());
+        attention.setAttentionModification(new Date());
+        //进行存储
+        if (attentionService.save(attention)) {
+            return new Result(
+                    Result.STATUS_OK_200
+                    ,Result.INFO_OK_200
+                    ,Result.DETAILS_OK_200
+                    ,"关注成功！"
+                    ,path);
+        }else {
+            return new Result(
+                    Result.STATUS_ERROR_500
+                    ,Result.INFO_ERROR_500
+                    ,Result.DETAILS_ERROR_500
+                    ,"关注失败，系统可能产生错误"
+                    ,path);
+        }
     }
 
 }
