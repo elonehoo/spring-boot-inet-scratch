@@ -162,6 +162,17 @@ public class UserBasedController {
                 ,"scratch/userBased/register");
     }
 
+    /**
+     * 点赞某一个用户,如果已经点赞过了,则进行取消操作
+     * @param token 令牌
+     * @param thumbUpEmail 需要点赞的用户邮箱
+     * @return Result
+     */
+    @ApiOperation("点赞某一个用户,如果已经点赞过了,则进行取消操作")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="ThumbUpEmail",value="点赞的邮箱",dataType="String", paramType = "query"),
+    })
+    @RequiresRoles(value = {"member"})
     @GetMapping("/like")
     public Result getLikes(@RequestHeader(value = "Token",defaultValue = "") String token,
                            @RequestParam(value = "ThumbUpEmail",defaultValue = "") String thumbUpEmail){
