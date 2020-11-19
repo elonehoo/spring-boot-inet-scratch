@@ -162,6 +162,15 @@ public class UserBasedController {
                 ,"scratch/userBased/register");
     }
 
+    @GetMapping("/like")
+    public Result getLikes(@RequestHeader(value = "Token",defaultValue = "") String token,
+                           @RequestParam(value = "ThumbUpEmail",defaultValue = "") String thumbUpEmail){
+        return userService.getLike(
+                  token
+                , thumbUpEmail
+                , "scratch/userBased/like");
+    }
+
 
 
 }

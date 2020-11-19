@@ -106,4 +106,15 @@ public interface UserService extends IService<User> {
      * @return Result风格
      */
     Result getFocus(String token, String focusEmail, String path);
+
+    /**
+     * 进行点赞操作,如果已经点赞过了,进行取消
+     * @author HCY
+     * @since 2020-11-19
+     * @param token 令牌
+     * @param thumbUpEmail 进行点赞的邮箱
+     * @param path URL路径
+     * @return Result风格
+     */
+    Result getLike(String token, String thumbUpEmail, String path);
 }

@@ -67,6 +67,14 @@ public class Result {
     public Result() {
     }
 
+    /**
+     * OK
+     * @author HCY
+     * @since 2020-11-19
+     * @param message 信息
+     * @param path URL路径
+     * @return Result 风格的返回值
+     */
     public Result result200(Object message , String path){
         return new Result(
                  Result.STATUS_OK_200
@@ -75,6 +83,14 @@ public class Result {
                 ,message
                 ,path);
     }
+    /**
+     * ILLEGAL
+     * @author HCY
+     * @since 2020-11-19
+     * @param message 信息
+     * @param path URL路径
+     * @return Result 风格的返回值
+     */
     public Result result401(Object message , String path){
         return new Result(
                  Result.STATUS_ILLEGAL_401
@@ -83,6 +99,14 @@ public class Result {
                 ,message
                 ,path);
     }
+    /**
+     * BAN
+     * @author HCY
+     * @since 2020-11-19
+     * @param message 信息
+     * @param path URL路径
+     * @return Result 风格的返回值
+     */
     public Result result403(Object message , String path){
         return new Result(
                 Result.STATUS_BAN_403
@@ -91,6 +115,14 @@ public class Result {
                 ,message
                 ,path);
     }
+    /**
+     * NotFound
+     * @author HCY
+     * @since 2020-11-19
+     * @param message 信息
+     * @param path URL路径
+     * @return Result 风格的返回值
+     */
     public Result result404(Object message , String path){
         return new Result(
                 Result.STATUS_NOT_FOUND_404
@@ -99,6 +131,14 @@ public class Result {
                 ,message
                 ,path);
     }
+    /**
+     * ERROR
+     * @author HCY
+     * @since 2020-11-19
+     * @param message 信息
+     * @param path URL路径
+     * @return Result 风格的返回值
+     */
     public Result result500(Object message , String path){
         return new Result(
                 Result.STATUS_ERROR_500

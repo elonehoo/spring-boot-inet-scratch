@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.inet.code.mapper.ParaiseMapper">
 
+    <!--判断是否已经点赞过了-->
+    <select id="getJudgeUserLike" resultType="com.inet.code.entity.Paraise">
+        SELECT
+            praise_uuid AS praiseUuid,
+            praise_email AS praiseEmail,
+            praise_economy AS praiseEconomy
+        FROM
+            tbl_paraise
+        WHERE
+            praise_email = #{userEmail}
+          AND praise_economy = #{thumbUpEmail}
+        LIMIT 1;
+    </select>
+    <!--取消点赞-->
+    <delete id="getTrampleLike" >
+        DELETE
+        FROM
+            tbl_paraise
+        WHERE
+            praise_email = #{userEmail}
+          AND praise_economy = #{thumbUpEmail}
+        LIMIT 1;
+    </delete>
+
 </mapper>

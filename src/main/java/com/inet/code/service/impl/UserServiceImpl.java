@@ -6,10 +6,7 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
-import com.inet.code.entity.Attention;
-import com.inet.code.entity.Cipher;
-import com.inet.code.entity.Power;
-import com.inet.code.entity.User;
+import com.inet.code.entity.*;
 import com.inet.code.mapper.UserMapper;
 import com.inet.code.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -56,6 +53,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Resource
     private AttentionService attentionService;
+
+    @Resource
+    private ParaiseService paraiseService;
 
     /**
      * 登录操作
@@ -338,12 +338,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public Result getFocus(String token, String focusEmail, String path) {
         //通过 token 获取用户 user
         User user = (User) redisTemplate.opsForValue().get(token);
+        //判断用户或者关注的用户是否存在
         Result fOEO = focusOnEarlyOperations(focusEmail, path, user);
         if (fOEO != null){
             return fOEO;
         }
         //判断是关注操作还是取关的操作
-        Result result;
+        Result result = null;
         if (attentionService.getWhetherAttention(user.getUserEmail() , focusEmail) == null){
             //关注操作
             result = attentionOperating(user,focusEmail,path);
@@ -353,6 +354,106 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         return result;
+    }
+
+    /**
+     * 进行点赞操作,如果已经点赞过了,进行取消
+     * @author HCY
+     * @since 2020-11-19
+     * @param token 令牌
+     * @param thumbUpEmail 进行点赞的邮箱
+     * @param path URL路径
+     * @return Result风格
+     */
+    @Override
+    public Result getLike(String token, String thumbUpEmail, String path) {
+        //从redis中取出用户信息
+        User user = (User) redisTemplate.opsForValue().get(token);
+        //判断用户信息和点赞的用户是否正确
+        Result userLike = judgeUserLike(user,thumbUpEmail,path);
+        if (user != null){
+            return userLike;
+        }
+        //判断是点赞还是取消点赞的操作
+        Result result = null;
+        if (paraiseService.getJudgeUserLike(user.getUserEmail(),thumbUpEmail) == null){
+            //点赞操作
+            result = clickLike(user.getUserEmail() ,thumbUpEmail,path);
+        }else {
+            //取消点赞操作
+            result = trampleLike(user.getUserEmail(),thumbUpEmail,path);
+        }
+        return result;
+    }
+
+    /**
+     * 取消点赞操作
+     * @author HCY
+     * @since 2020-11-19
+     * @param userEmail 用户邮箱
+     * @param thumbUpEmail 需要点赞的邮箱
+     * @param path URL路径
+     * @return Result
+     */
+    private Result trampleLike(String userEmail, String thumbUpEmail, String path) {
+        if (paraiseService.getTrampleLike(userEmail , thumbUpEmail)) {
+            return new Result().result200("取消点赞成功",path);
+        }
+        return new Result().result500("取消点赞失败",path);
+    }
+
+    /**
+     * 点赞操作
+     * @author HCY
+     * @since 2020-11-19
+     * @param userEmail 用户邮箱
+     * @param thumbUpEmail 需要点赞的邮箱
+     * @param path URL路径
+     * @return Result
+     */
+    private Result clickLike(String userEmail, String thumbUpEmail, String path) {
+        //创建实体类
+        Paraise paraise = new Paraise();
+        //设置用户邮箱邮箱
+        paraise.setPraiseEmail(userEmail);
+        //设置需要点赞的邮箱
+        paraise.setPraiseEconomy(thumbUpEmail);
+        //设置创建和修改的时间
+        paraise.setPraiseCreation(new Date());
+        paraise.setPraiseModification(new Date());
+        //进行存储
+        if (paraiseService.save(paraise)) {
+            return new Result().result200("点赞成功",path);
+        }
+        return new Result().result500("点赞失败",path);
+    }
+
+    /**
+     * 判断用户是否存在
+     * 判断需要点赞用户是否存在
+     * 判断是否正在点赞自己
+     * 如果都正确则输出null
+     * @author HCY
+     * @since 2020-11-19
+     * @param thumbUpEmail 点赞者的邮箱
+     * @param path URL路径
+     * @param user User对象
+     * @return Result风格
+     */
+    private Result judgeUserLike(User user, String thumbUpEmail, String path) {
+        //判断user是否存在
+        if (user == null){
+            return new Result().result404("用户不正确，请重新登陆", path);
+        }
+        //判断需要关注的用户是否存在
+        if (userMapper.getByEmail(thumbUpEmail) == null){
+            return new Result().result404("点赞的用户不存在，请刷新页面在进行关注", path);
+        }
+        //判断是否在关注自己
+        if (user.getUserEmail().equals(thumbUpEmail)){
+            return  new Result().result401("您一直在点赞自己了哦！", path);
+        }
+        return null;
     }
 
     /**

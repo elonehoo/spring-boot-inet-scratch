@@ -11,6 +11,7 @@ import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
 import com.inet.code.entity.User;
 import com.inet.code.mapper.UserMapper;
+import com.inet.code.utlis.Result;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,6 +19,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
@@ -120,4 +122,5 @@ class INetApplicationTests {
         System.out.println(user.getUserName());
         System.out.println(user.getRoleName());
     }
+
 }
