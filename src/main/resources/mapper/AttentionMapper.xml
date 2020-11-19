@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.inet.code.mapper.AttentionMapper">
-
+    <!--取关操作-->
+    <delete id="takeOffOperating">
+        DELETE
+        FROM
+            tbl_attention
+        WHERE
+              attention_email = #{userEmail}
+          AND attention_concern = #{focusEmail}
+        LIMIT 1;
+    </delete>
+    <!--关注操作-->
+    <select id="getWhetherAttention" resultType="com.inet.code.entity.Attention">
+        SELECT
+            attention_uuid AS attentionUuid,
+            attention_email AS attentionEmail,
+            attention_concern AS attentionConcern
+        FROM
+            tbl_attention
+        WHERE
+            attention_email = #{userEmail}
+          AND attention_concern = #{focusEmail}
+        LIMIT 1;
+    </select>
 </mapper>

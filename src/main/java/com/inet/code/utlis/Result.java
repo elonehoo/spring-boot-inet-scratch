@@ -67,6 +67,47 @@ public class Result {
     public Result() {
     }
 
+    public Result result200(Object message , String path){
+        return new Result(
+                 Result.STATUS_OK_200
+                ,Result.INFO_OK_200
+                ,Result.DETAILS_OK_200
+                ,message
+                ,path);
+    }
+    public Result result401(Object message , String path){
+        return new Result(
+                 Result.STATUS_ILLEGAL_401
+                ,Result.INFO_ILLEGAL_401
+                ,Result.DETAILS_ILLEGAL_401
+                ,message
+                ,path);
+    }
+    public Result result403(Object message , String path){
+        return new Result(
+                Result.STATUS_BAN_403
+                ,Result.INFO_BAN_403
+                ,Result.DETAILS_BAN_403
+                ,message
+                ,path);
+    }
+    public Result result404(Object message , String path){
+        return new Result(
+                Result.STATUS_NOT_FOUND_404
+                ,Result.INFO_NOT_FOUND_404
+                ,Result.DETAILS_NOT_FOUND_404
+                ,message
+                ,path);
+    }
+    public Result result500(Object message , String path){
+        return new Result(
+                Result.STATUS_ERROR_500
+                ,Result.INFO_ERROR_500
+                ,Result.DETAILS_ERROR_500
+                ,message
+                ,path);
+    }
+
     /**
      * 全参
      * @author HCY

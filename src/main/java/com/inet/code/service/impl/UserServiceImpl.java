@@ -74,12 +74,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 ,DigestUtil.md5Hex(password));
         //账号或者密码错误
         if (user == null){
-            return new Result(
-                    Result.STATUS_NOT_FOUND_404
-                    ,Result.INFO_NOT_FOUND_404
-                    ,Result.DETAILS_NOT_FOUND_404
-                    ,"您的账号或者密码错误"
-                    ,path);
+            return new Result().result404("您的账号或者密码错误",path);
         }
         //产生 token 的条件
         Map<String, String> map = new HashMap<>(2);
@@ -93,12 +88,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Map<String, String> results = new HashMap<>(2);
         results.put("info","登录成功");
         results.put("token",token);
-        return new Result(
-                Result.STATUS_OK_200
-                ,Result.INFO_OK_200
-                ,"成功"
-                ,results
-                ,path);
+        return new Result().result200(results,path);
     }
 
     /**
@@ -112,19 +102,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Result getExit(String token, String path) {
         if (redisTemplate.delete(token)) {
-            return new Result(
-                    Result.STATUS_OK_200
-                    ,Result.INFO_OK_200
-                    ,Result.DETAILS_OK_200
-                    ,"退出成功"
-                    ,path);
+            return new Result().result200("退出成功",path);
         }
-        return  new Result(
-                Result.STATUS_ERROR_500
-                ,Result.INFO_ERROR_500
-                ,Result.DETAILS_ERROR_500
-                ,"退出失败"
-                ,path);
+        return  new Result().result500("退出失败",path);
     }
 
     /**
@@ -174,19 +154,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         boolean consequence = this.updateById(user);
         //判断是否修改成功
         if (consequence){
-            return new Result(
-                    Result.STATUS_OK_200
-                    ,Result.INFO_OK_200
-                    ,Result.DETAILS_OK_200
-                    ,"修改成功"
-                    ,path);
+            return new Result().result200("修改成功",path);
         }else {
-            return new Result(
-                    Result.STATUS_ERROR_500
-                    ,Result.INFO_ERROR_500
-                    ,Result.DETAILS_ERROR_500
-                    ,"修改失败"
-                    ,path);
+            return new Result().result500("修改失败",path);
         }
     }
 
@@ -202,12 +172,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public Result getVerification(String email, String path) {
         //判断邮箱是否合法
         if (!Validator.isEmail(email)) {
-            return new Result(
-                    Result.STATUS_ILLEGAL_401
-                    ,Result.INFO_ILLEGAL_401
-                    ,Result.DETAILS_ILLEGAL_401
-                    ,"邮箱不合法，无法进行发送验证码"
-                    ,path);
+            return new Result().result401("邮箱不合法，无法进行发送验证码",path);
         }
         //判断邮箱是否重复
         Result emailRepeat = this.getEmailRepeat(email, path);
@@ -233,12 +198,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 ,60 * 5
                 ,TimeUnit.SECONDS);
         //递交返回值
-        return new Result(
-                Result.STATUS_OK_200
-                ,Result.INFO_OK_200
-                ,Result.DETAILS_OK_200
-                ,"验证码发送成功"
-                ,path);
+        return new Result().result200("验证码发送成功",path);
     }
 
     /**
@@ -269,19 +229,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Result getEmailRepeat(String email, String path) {
         if (userMapper.getEMailRepeat(email) != null){
-            return new Result(
-                    Result.STATUS_ERROR_500
-                    ,Result.INFO_ERROR_500
-                    ,Result.DETAILS_ERROR_500
-                    ,"邮箱产生了重复"
-                    ,path);
+            return new Result().result500("邮箱产生了重复",path);
         }
-        return new Result(
-                Result.STATUS_OK_200
-                ,Result.INFO_OK_200
-                , Result.DETAILS_OK_200
-                ,"邮箱未产生重复"
-                ,path);
+        return new Result().result200("邮箱未产生重复",path);
     }
 
     /**
@@ -298,12 +248,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public Result getRegister(String email, String code, String password, String path) {
         //判断邮箱是否合法
         if (!Validator.isEmail(email)){
-            return new Result(
-                    Result.STATUS_ILLEGAL_401
-                    ,Result.INFO_ILLEGAL_401
-                    ,Result.DETAILS_ILLEGAL_401
-                    ,"邮箱不合法"
-                    ,path);
+            return new Result().result401("邮箱不合法",path);
         }
         //判断邮箱是否重复
         Result emailRepeat = this.getEmailRepeat(email, path);
@@ -314,21 +259,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //判断验证码是否正确
         String verification = (String) redisTemplate.opsForValue().get(email);
         if (!verification.equals(code)){
-            return new Result(
-                    Result.STATUS_BAN_403
-                    ,Result.INFO_BAN_403
-                    ,Result.DETAILS_BAN_403
-                    ,"验证码错误"
-                    ,path);
+            return new Result().result403("验证码错误",path);
         }
         //判断密码是否合法
         if (! Validator.isGeneral(password)) {
-            return new Result(
-                    Result.STATUS_ILLEGAL_401
-                    ,Result.INFO_ILLEGAL_401
-                    ,Result.DETAILS_ILLEGAL_401
-                    ,"密码格式不正确，需要包含大写字母，小写字母，数字"
-                    ,path);
+            return new Result().result401("密码格式不正确，需要包含大写字母，小写字母，数字",path);
         }
         //进行注册操作，注册的用户权限为 ： member
         User user = new User();
@@ -352,12 +287,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         power.setPowerCreation(new Date());
         power.setPowerModification(new Date());
         powerService.save(power);
-        return new Result(
-                Result.STATUS_OK_200
-                ,Result.INFO_OK_200
-                ,Result.DETAILS_OK_200
-                ,"注册成功"
-                ,path);
+        return new Result().result200("注册成功",path);
     }
 
     /**
@@ -375,53 +305,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = (User) redisTemplate.opsForValue().get(token);
         //判断token是否有用户
         if (user == null){
-            return new Result(
-                    Result.STATUS_ILLEGAL_401
-                    ,Result.INFO_ILLEGAL_401
-                    ,Result.DETAILS_ILLEGAL_401
-                    ,"尚未找到用户"
-                    ,path);
+            return new Result().result401("尚未找到用户",path);
         }
         //取出密码
         Cipher userCipher = cipherService.getByEmail(user.getUserEmail());
         //判断旧密码是否正确
         if (! userCipher.getCipherPassword().equals(DigestUtil.md5Hex(oldPassword))){
-            return new Result(
-                    Result.STATUS_NOT_FOUND_404
-                    ,Result.INFO_NOT_FOUND_404
-                    ,Result.DETAILS_NOT_FOUND_404
-                    ,"旧密码不正确"
-                    ,path);
+            return new Result().result404("旧密码不正确",path);
         }
         //判断新密码是否符合密码规范
         if (! Validator.isGeneral(newPassword)) {
-            return new Result(
-                    Result.STATUS_ILLEGAL_401
-                    ,Result.INFO_ILLEGAL_401
-                    ,Result.DETAILS_ILLEGAL_401
-                    ,"密码格式不正确，需要包含大写字母，小写字母，数字"
-                    ,path);
+            return new Result().result401("密码格式不正确，需要包含大写字母，小写字母，数字",path);
         }
         //进行密码的修改
         userCipher.setCipherPassword(DigestUtil.md5Hex(newPassword));
         if ( ! cipherService.updateById(userCipher)){
-            return new Result(
-                    Result.STATUS_ERROR_500
-                    ,Result.INFO_ERROR_500
-                    ,Result.DETAILS_ERROR_500
-                    ,"修改失败"
-                    ,path);
+            return new Result().result500("修改失败",path);
         }
-        return new Result(
-                Result.STATUS_OK_200
-                ,Result.INFO_OK_200
-                ,Result.DETAILS_OK_200
-                ,"修改成功"
-                ,path);
+        return new Result().result200("修改成功",path);
     }
 
     /**
-     * 进行关注处理
+     * 进行关注或者取关处理
      * @author HCY
      * @since 2020-11-16
      * @param token 令牌
@@ -433,60 +338,91 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public Result getFocus(String token, String focusEmail, String path) {
         //通过 token 获取用户 user
         User user = (User) redisTemplate.opsForValue().get(token);
-        System.out.println("user的email ； " + user.getUserEmail());
-        System.out.println("是否相等 ： " + user.getUserEmail().equals(focusEmail));
+        Result fOEO = focusOnEarlyOperations(focusEmail, path, user);
+        if (fOEO != null){
+            return fOEO;
+        }
+        //判断是关注操作还是取关的操作
+        Result result;
+        if (attentionService.getWhetherAttention(user.getUserEmail() , focusEmail) == null){
+            //关注操作
+            result = attentionOperating(user,focusEmail,path);
+        }else {
+            //取关操作
+            result = takeOffOperating(user,focusEmail,path);
+        }
+
+        return result;
+    }
+
+    /**
+     * 取消关注操作
+     * @author HCY
+     * @since 2020-11-19
+     * @param user 用户
+     * @param focusEmail 需要关注的邮箱
+     * @param path URL路径
+     * @return Result
+     */
+    private Result takeOffOperating(User user, String focusEmail, String path) {
+        if (attentionService.takeOffOperating(user.getUserEmail(),focusEmail)) {
+            return new Result().result200("删除成功",path);
+        }
+        return new Result().result500("删除失败",path);
+    }
+
+    /**
+     * 关注操作
+     * @author HCY
+     * @since 2020-11-19
+     * @param user 用户
+     * @param focusEmail 需要关注的邮箱用户
+     * @param path URL路径
+     * @return Result
+     */
+    private Result attentionOperating(User user, String focusEmail, String path) {
+        //进行关注操作
+        Attention attention = new Attention();
+        //设置用户的邮箱
+        attention.setAttentionEmail(user.getUserEmail());
+        //设置需要关注的邮箱
+        attention.setAttentionConcern(focusEmail);
+        //设置创建时间和修改时间
+        attention.setAttentionCreation(new Date());
+        attention.setAttentionModification(new Date());
+        //进行保存操作
+        if (attentionService.save(attention)) {
+            return new Result().result200("关注成功", path);
+        }
+        return new Result().result500("关注失败!",path);
+    }
+
+    /**
+     * 判断用户是否存在
+     * 判断需要关注的用户是否存在
+     * 判断是否正在关注自己
+     * 如果都正确则输出null
+     * @author HCY
+     * @since 2020-11-19
+     * @param focusEmail 关注者的邮箱
+     * @param path URL路径
+     * @param user User对象
+     * @return Result风格
+     */
+    private Result focusOnEarlyOperations(String focusEmail, String path, User user) {
         //判断user是否存在
         if (user == null){
-            return new Result(
-                    Result.STATUS_NOT_FOUND_404
-                    ,Result.INFO_NOT_FOUND_404
-                    ,Result.DETAILS_NOT_FOUND_404
-                    ,"用户不正确，请重新登陆"
-                    ,path);
+            return new Result().result404("用户不正确，请重新登陆", path);
         }
         //判断需要关注的用户是否存在
         if (userMapper.getByEmail(focusEmail) == null){
-            return new Result(
-                    Result.STATUS_NOT_FOUND_404
-                    ,Result.INFO_NOT_FOUND_404
-                    ,Result.DETAILS_NOT_FOUND_404
-                    ,"关注的用户不存在，请刷新页面在进行关注"
-                    ,path);
+            return new Result().result404("关注的用户不存在，请刷新页面在进行关注", path);
         }
         //判断是否在关注自己
         if (user.getUserEmail().equals(focusEmail)){
-            return new Result(
-                    Result.STATUS_ILLEGAL_401
-                    ,Result.INFO_ILLEGAL_401
-                    ,Result.DETAILS_ILLEGAL_401
-                    ,"自己无法关注自己了哦！"
-                    ,path);
+            return  new Result().result401("您一直在关注自己了哦！", path);
         }
-        //进行关注
-        Attention attention = new Attention();
-        //设置关注者的邮箱
-        attention.setAttentionConcern(focusEmail);
-        //设置自己的邮箱
-        attention.setAttentionEmail(user.getUserEmail());
-        //设置时间
-        attention.setAttentionCreation(new Date());
-        attention.setAttentionModification(new Date());
-        //进行存储
-        if (attentionService.save(attention)) {
-            return new Result(
-                    Result.STATUS_OK_200
-                    ,Result.INFO_OK_200
-                    ,Result.DETAILS_OK_200
-                    ,"关注成功！"
-                    ,path);
-        }else {
-            return new Result(
-                    Result.STATUS_ERROR_500
-                    ,Result.INFO_ERROR_500
-                    ,Result.DETAILS_ERROR_500
-                    ,"关注失败，系统可能产生错误"
-                    ,path);
-        }
+        return null;
     }
 
 }

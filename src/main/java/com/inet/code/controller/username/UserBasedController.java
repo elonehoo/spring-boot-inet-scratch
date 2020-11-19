@@ -141,14 +141,14 @@ public class UserBasedController {
     }
 
     /**
-     * 关注某一个用户
+     * 关注某一个用户,如果已经关注过了,则进行取消关注操作
      * @author HCY
      * @since 2020-11-17
      * @param token 令牌
      * @param focusEmail 关注的邮箱
-     * @return
+     * @return Result
      */
-    @ApiOperation("关注某一个用户")
+    @ApiOperation("关注某一个用户,如果已经关注过了,则进行取消操作")
     @ApiImplicitParams({
             @ApiImplicitParam(name="FocusEmail",value="关注的邮箱",dataType="String", paramType = "query"),
     })
@@ -161,5 +161,7 @@ public class UserBasedController {
                 ,focusEmail
                 ,"scratch/userBased/register");
     }
+
+
 
 }
