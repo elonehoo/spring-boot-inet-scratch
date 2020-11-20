@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -371,7 +372,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = (User) redisTemplate.opsForValue().get(token);
         //判断用户信息和点赞的用户是否正确
         Result userLike = judgeUserLike(user,thumbUpEmail,path);
-        if (user != null){
+        if (userLike != null){
             return userLike;
         }
         //判断是点赞还是取消点赞的操作
@@ -384,6 +385,45 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             result = trampleLike(user.getUserEmail(),thumbUpEmail,path);
         }
         return result;
+    }
+    /**
+    * 查看点赞的用户
+    * @author HCY
+    * @since 2020/11/20 下午 05:20
+    * @param token: 令牌
+    * @param path: URL路径
+    * @return com.inet.code.utlis.Result
+    */
+    @Override
+    public Result getShowThump(String token, String path) {
+        //获取user对象
+        User user = (User) redisTemplate.opsForValue().get(token);
+        //设置返回值
+        Map<String, Object> map = new HashMap<>();
+        map.put("info","展示成功");
+        //获取user对象的所有点赞人员
+        map.put("result",userMapper.getShowThump(user.getUserEmail()));
+        return new Result().result200(map,path);
+    }
+
+    /**
+    * 查看自己的粉丝
+    * @author HCY
+    * @since 2020/11/20 下午 07:45
+    * @param token: 令牌
+    * @param path: URL路径
+    * @return com.inet.code.utlis.Result
+    */
+    @Override
+    public Result getCheckFan(String token, String path) {
+        //查看用户的信息
+        User user = (User) redisTemplate.opsForValue().get(token);
+        //设置返回值
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("info","展示粉丝");
+        //找粉丝
+        map.put("result",userMapper.getCheckFan(user.getUserEmail()));
+        return new Result().result200(map,path);
     }
 
     /**

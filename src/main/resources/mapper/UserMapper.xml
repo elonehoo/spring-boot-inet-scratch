@@ -56,4 +56,40 @@
             user_email = #{focusEmail}
             LIMIT 1
     </select>
+    <!--查看关注自己的人-->
+    <select id="getShowThump" resultType="com.inet.code.entity.User">
+        SELECT
+            t1.user_uuid AS userUuid,
+            t1.user_buddha AS userBuddha,
+            user_name AS userName,
+            user_email AS userEmail,
+            user_sex AS userSex,
+            user_birthday AS userBirthday,
+            user_city AS userCity,
+            user_signature AS userSignature,
+            t2.praise_creation AS likeTime
+        FROM
+            tbl_user AS t1
+                LEFT JOIN tbl_paraise AS t2 ON t2.praise_email = t1.user_email
+        WHERE
+            t2.praise_economy = #{userEmail};
+    </select>
+    <!--查看自己的粉丝-->
+    <select id="getCheckFan" resultType="com.inet.code.entity.User">
+        SELECT
+            t1.user_uuid AS userUuid,
+            t1.user_buddha AS userBuddha,
+            t1.user_name AS userName,
+            t1.user_email AS userEmail,
+            t1.user_sex AS userSex,
+            t1.user_birthday AS userBirthday,
+            t1.user_city AS userCity,
+            t1.user_signature AS userSignature,
+            t2.attention_creation AS likeTime
+        FROM
+            tbl_user AS t1
+                LEFT JOIN tbl_attention AS t2 ON t2.attention_email = t1.user_email
+        WHERE
+            t2.attention_concern = #{userEmail};
+    </select>
 </mapper>

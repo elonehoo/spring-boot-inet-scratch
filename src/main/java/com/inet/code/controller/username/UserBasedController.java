@@ -182,6 +182,33 @@ public class UserBasedController {
                 , "scratch/userBased/like");
     }
 
+    /**
+    * 查看给自己点赞的用户
+    * @author HCY
+    * @since 2020/11/20 下午 05:18
+    * @param token: 令牌
+    * @return com.inet.code.utlis.Result
+    */
+    @ApiOperation("查看给自己点赞的用户")
+    @GetMapping("/showThump")
+    @RequiresRoles(value = {"member"})
+    public Result getShowThump(@RequestHeader(value = "Token",defaultValue = "") String token){
+        return userService.getShowThump(
+                 token
+                ,"scratch/userBased/showThump");
+    }
 
-
+    /**
+    * 查看自己的粉丝
+    * @author HCY
+    * @since 2020/11/20 下午 08:03
+    * @param token: 令牌
+    * @return com.inet.code.utlis.Result
+    */
+    @ApiOperation("查看给自己的粉丝")
+    @GetMapping("/checkFan")
+    @RequiresRoles(value = {"member"})
+    public Result getCheckFan(@RequestHeader(value = "Token",defaultValue = "") String token){
+        return userService.getCheckFan(token,"scratch/userBased/checkFan");
+    }
 }

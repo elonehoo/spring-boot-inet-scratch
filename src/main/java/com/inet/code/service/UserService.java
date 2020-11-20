@@ -117,4 +117,23 @@ public interface UserService extends IService<User> {
      * @return Result风格
      */
     Result getLike(String token, String thumbUpEmail, String path);
+    /**
+    * 查看点赞的用户
+    * @author HCY
+    * @since 2020/11/20 下午 05:19
+    * @param token: 令牌
+    * @param path: URL路径
+    * @return com.inet.code.utlis.Result
+    */
+    Result getShowThump(String token, String path);
+
+    /**
+    * 查看自己的粉丝
+    * @author HCY
+    * @since 2020/11/20 下午 07:44
+    * @param token: 令牌
+    * @param path:  URL路径
+    * @return com.inet.code.utlis.Result
+    */
+    Result getCheckFan(String token, String path);
 }

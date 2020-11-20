@@ -3,6 +3,8 @@ package com.inet.code.mapper;
 import com.inet.code.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -38,4 +40,22 @@ public interface UserMapper extends BaseMapper<User> {
      * @return User实体类
      */
     User getByEmail(String focusEmail);
+
+    /**
+    * 查看关注自己的人
+    * @author HCY
+    * @since 2020/11/20 下午 05:52
+    * @param userEmail: 用户邮箱
+    * @return java.util.List<com.inet.code.entity.User>
+    */
+    List<User> getShowThump(String userEmail);
+
+    /**
+    * 查看自己的粉丝
+    * @author HCY
+    * @since 2020/11/20 下午 07:55
+    * @param userEmail: 用户的邮箱
+    * @return java.util.List<com.inet.code.entity.User>
+    */
+    List<User> getCheckFan(String userEmail);
 }
