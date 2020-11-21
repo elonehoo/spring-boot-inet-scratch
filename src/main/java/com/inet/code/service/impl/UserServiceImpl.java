@@ -6,21 +6,23 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
+import cn.hutool.http.HttpUtil;
 import com.inet.code.entity.*;
 import com.inet.code.mapper.UserMapper;
 import com.inet.code.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.inet.code.utlis.FileUtils;
 import com.inet.code.utlis.FromMailUtil;
 import com.inet.code.utlis.JwtUtils;
 import com.inet.code.utlis.Result;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -424,6 +426,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //找粉丝
         map.put("result",userMapper.getCheckFan(user.getUserEmail()));
         return new Result().result200(map,path);
+    }
+
+    /**
+    * 上传文件
+    * @author HCY
+    * @since 2020/11/21 下午 07:20
+    * @param file: 文件
+    * @param token: 令牌
+    * @param path: URL路径
+    * @return com.inet.code.utlis.Result
+    */
+    @Override
+    public Result getUploading(MultipartFile file, String token, String path) {
+        String realPath = "C:\\Users\\Administrator.DESKTOP-TSJVEJ5\\Desktop\\www";
+        try {
+            file.transferTo(new File(realPath, Objects.requireNonNull(file.getOriginalFilename())));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     /**

@@ -3,6 +3,7 @@ package com.inet.code.service;
 import com.inet.code.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.inet.code.utlis.Result;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -136,4 +137,15 @@ public interface UserService extends IService<User> {
     * @return com.inet.code.utlis.Result
     */
     Result getCheckFan(String token, String path);
+
+    /**
+    * 上传文件
+    * @author HCY
+    * @since 2020/11/21 下午 07:20
+    * @param file: 文件
+    * @param token: 令牌
+    * @param path: URL路径
+    * @return com.inet.code.utlis.Result
+    */
+    Result getUploading(MultipartFile file, String token, String path);
 }

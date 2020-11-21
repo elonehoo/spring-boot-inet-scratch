@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -205,10 +206,21 @@ public class UserBasedController {
     * @param token: 令牌
     * @return com.inet.code.utlis.Result
     */
-    @ApiOperation("查看给自己的粉丝")
+    @ApiOperation("查看自己的粉丝")
     @GetMapping("/checkFan")
     @RequiresRoles(value = {"member"})
     public Result getCheckFan(@RequestHeader(value = "Token",defaultValue = "") String token){
         return userService.getCheckFan(token,"scratch/userBased/checkFan");
+    }
+
+    @ApiOperation("上传sb3文件,返回")
+    @PostMapping(value = "/uploading",headers = "content-type=multipart/form-data")
+    @RequiresRoles(value = {"member"})
+    public Result postUploading(@RequestHeader(value = "Token",defaultValue = "") String token,
+                                @RequestParam(value = "file",required = true) @RequestPart MultipartFile file){
+        return userService.getUploading(
+                 file
+                ,token
+                ,"scratch/userBased/uploading");
     }
 }

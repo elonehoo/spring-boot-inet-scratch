@@ -46,6 +46,12 @@
             <artifactId>hutool-all</artifactId>
             <version>5.4.7</version>
         </dependency>
+        <!--文件上传和下载-->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.18.1</version>
+        </dependency>
         <!--邮箱-->
         <dependency>
             <groupId>javax.mail</groupId>

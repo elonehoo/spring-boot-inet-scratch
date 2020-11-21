@@ -16,8 +16,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -123,4 +125,8 @@ class INetApplicationTests {
         System.out.println(user.getRoleName());
     }
 
+    @Test
+    void configLoads12(){
+
+    }
 }
