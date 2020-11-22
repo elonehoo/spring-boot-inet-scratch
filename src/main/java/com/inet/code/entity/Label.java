@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -45,14 +46,14 @@ public class Label implements Serializable {
      */
     @TableField(value = "label_creation")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime labelCreation;
+    private Date labelCreation;
 
     /**
      * 修改时间
      */
     @TableField(value = "label_modification")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime labelModification;
+    private Date labelModification;
 
 
 }

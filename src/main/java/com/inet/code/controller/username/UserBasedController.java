@@ -1,18 +1,17 @@
 package com.inet.code.controller.username;
 
+import com.inet.code.realize.UserBaseService;
 import com.inet.code.service.UserService;
 import com.inet.code.utlis.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.util.Date;
 
 /**
  * BaseController
@@ -26,7 +25,7 @@ import java.util.Date;
 @Api(tags = {"用户页面的基础操作"},description = "用户模块")
 public class UserBasedController {
     @Resource
-    private UserService userService;
+    private UserBaseService userBaseService;
 
     /**
      * 用户进行信息的修改
@@ -60,7 +59,7 @@ public class UserBasedController {
                             @RequestParam(value = "Birthday",defaultValue = "") String birthday,
                             @RequestParam(value = "City",defaultValue = "") String city,
                             @RequestParam(value = "Signature",defaultValue = "") String signature){
-        return userService.getUpload(
+        return userBaseService.getUpload(
                 token
                 ,buddha
                 ,name
@@ -84,7 +83,7 @@ public class UserBasedController {
     })
     @GetMapping("/verification")
     public Result getVerification(@RequestParam(value = "Email",defaultValue = "") String email){
-        return userService.getVerification(
+        return userBaseService.getVerification(
                 email
                 ,"/scratch/userBased/upload");
     }
@@ -108,7 +107,7 @@ public class UserBasedController {
     public Result postRegister(@RequestParam(value = "Email",defaultValue = "") String email,
                                @RequestParam(value = "Code",defaultValue = "") String code,
                                @RequestParam(value = "Password",defaultValue = "") String password){
-        return userService.getRegister(
+        return userBaseService.getRegister(
                 email
                 ,code
                 ,password
@@ -134,7 +133,7 @@ public class UserBasedController {
     public Result putChange(@RequestHeader(value = "Token",defaultValue = "") String token,
                             @RequestParam(value = "OldPassword",defaultValue = "") String oldPassword,
                             @RequestParam(value = "NewPassword",defaultValue = "") String newPassword){
-        return userService.getChangePassword(
+        return userBaseService.getChangePassword(
                 token
                 ,oldPassword
                 ,newPassword
@@ -157,7 +156,7 @@ public class UserBasedController {
     @PutMapping("/focus")
     public Result putFocus(@RequestHeader(value = "Token",defaultValue = "") String token,
                            @RequestParam(value = "FocusEmail",defaultValue = "") String focusEmail){
-        return userService.getFocus(
+        return userBaseService.getFocus(
                 token
                 ,focusEmail
                 ,"scratch/userBased/register");
@@ -177,7 +176,7 @@ public class UserBasedController {
     @GetMapping("/like")
     public Result getLikes(@RequestHeader(value = "Token",defaultValue = "") String token,
                            @RequestParam(value = "ThumbUpEmail",defaultValue = "") String thumbUpEmail){
-        return userService.getLike(
+        return userBaseService.getLike(
                   token
                 , thumbUpEmail
                 , "scratch/userBased/like");
@@ -194,7 +193,7 @@ public class UserBasedController {
     @GetMapping("/showThump")
     @RequiresRoles(value = {"member"})
     public Result getShowThump(@RequestHeader(value = "Token",defaultValue = "") String token){
-        return userService.getShowThump(
+        return userBaseService.getShowThump(
                  token
                 ,"scratch/userBased/showThump");
     }
@@ -210,17 +209,24 @@ public class UserBasedController {
     @GetMapping("/checkFan")
     @RequiresRoles(value = {"member"})
     public Result getCheckFan(@RequestHeader(value = "Token",defaultValue = "") String token){
-        return userService.getCheckFan(token,"scratch/userBased/checkFan");
+        return userBaseService.getCheckFan(token,"scratch/userBased/checkFan");
     }
 
-    @ApiOperation("上传sb3文件,返回")
+    /**
+    * 上传.SB3文件,返回文件的URL地址
+    * @author HCY
+    * @since 2020/11/22 下午 08:18
+    * @param file: SB3 的文件
+    * @return com.inet.code.utlis.Result
+    */
+    @ApiOperation("上传sb3文件,返回文件的URL地址")
     @PostMapping(value = "/uploading",headers = "content-type=multipart/form-data")
     @RequiresRoles(value = {"member"})
-    public Result postUploading(@RequestHeader(value = "Token",defaultValue = "") String token,
-                                @RequestParam(value = "file") @RequestPart MultipartFile file){
-        return userService.getUploading(
+    public Result postUploading(@RequestParam(value = "file") @RequestPart MultipartFile file){
+        return userBaseService.getUploading(
                  file
-                ,token
                 ,"scratch/userBased/uploading");
     }
+
+
 }

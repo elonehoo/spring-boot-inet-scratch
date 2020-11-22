@@ -1,7 +1,7 @@
 package com.inet.code.controller;
 
 
-import com.inet.code.service.UserService;
+import com.inet.code.realize.BaseService;
 import com.inet.code.utlis.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -23,8 +23,9 @@ import javax.annotation.Resource;
 @CrossOrigin
 @Api(tags = {"管理和用户页面的基础操作"},description = "通用模块")
 public class BaseController {
+
     @Resource
-    private UserService userService;
+    private BaseService baseService;
 
     /**
      * 登录操作
@@ -42,7 +43,7 @@ public class BaseController {
     @PostMapping("/login")
     public Result getLogin(@RequestParam(value = "Account",defaultValue = "") String account,
                            @RequestParam(value = "Password",defaultValue = "") String password){
-        return userService.getLogin(account,password,"/scratch/based/login");
+        return baseService.getLogin(account,password,"/scratch/based/login");
     }
 
     /**
@@ -56,7 +57,7 @@ public class BaseController {
     @GetMapping("/exit")
     @RequiresRoles(logical = Logical.OR,value = {"admin","member"})
     public Result getExit(@RequestHeader(value = "Token",defaultValue = "") String token){
-        return userService.getExit(token,"/scratch/based/exit");
+        return baseService.getExit(token,"/scratch/based/exit");
     }
 
 }
