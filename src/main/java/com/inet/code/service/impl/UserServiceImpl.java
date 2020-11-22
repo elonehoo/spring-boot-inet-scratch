@@ -17,9 +17,12 @@ import com.inet.code.utlis.JwtUtils;
 import com.inet.code.utlis.Result;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -59,6 +62,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Resource
     private ParaiseService paraiseService;
+
+
 
     /**
      * 登录操作
@@ -388,6 +393,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         return result;
     }
+
     /**
     * 查看点赞的用户
     * @author HCY
@@ -429,7 +435,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     /**
-    * 上传文件
+    * 上传文件,返回文件在服务器上可以被访问的地址
     * @author HCY
     * @since 2020/11/21 下午 07:20
     * @param file: 文件
@@ -439,14 +445,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     */
     @Override
     public Result getUploading(MultipartFile file, String token, String path) {
-        String realPath = "C:\\Users\\Administrator.DESKTOP-TSJVEJ5\\Desktop\\www";
-        try {
-            file.transferTo(new File(realPath, Objects.requireNonNull(file.getOriginalFilename())));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return FileUtils.getUploading(file,path);
     }
 
     /**

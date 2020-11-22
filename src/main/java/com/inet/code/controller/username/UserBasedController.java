@@ -217,7 +217,7 @@ public class UserBasedController {
     @PostMapping(value = "/uploading",headers = "content-type=multipart/form-data")
     @RequiresRoles(value = {"member"})
     public Result postUploading(@RequestHeader(value = "Token",defaultValue = "") String token,
-                                @RequestParam(value = "file",required = true) @RequestPart MultipartFile file){
+                                @RequestParam(value = "file") @RequestPart MultipartFile file){
         return userService.getUploading(
                  file
                 ,token
