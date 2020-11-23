@@ -13,4 +13,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface EditorMapper extends BaseMapper<Editor> {
 
+    /**
+     * 查询有多少条属于这个类别的项目文件
+     * @author HCY
+     * @since 2020/11/23 11:26 下午
+     * @param labelUuid: 类别序号
+     * @return java.lang.Integer
+     */
+    Integer getLabelUuidCount(String labelUuid);
 }

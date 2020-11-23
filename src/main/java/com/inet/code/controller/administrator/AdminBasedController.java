@@ -52,13 +52,24 @@ public class AdminBasedController {
      * @param labelName: 新的标签名字
      * @return com.inet.code.utlis.Result
     */
+    @ApiOperation("标签的修改")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="LabelUuid",value="标签的uuid",dataType="String", paramType = "query"),
+            @ApiImplicitParam(name="LabelName",value="标签的名称",dataType="String", paramType = "query"),
+    })
     @PutMapping("/amendLabel")
+    @RequiresRoles(value = {"admin"})
     public Result putAmendLabel(@RequestParam(value = "LabelUuid",defaultValue = "") String labelUuid,
                                 @RequestParam(value = "LabelName",defaultValue = "") String labelName){
         return adminBaseService.getAmendLabel(
                  labelUuid
                 ,labelName
                 ,"/scratch/adminBased/amendLabel");
+    }
+
+    @DeleteMapping("/removePremiseLabel")
+    public Result deleteRemoveLabel(@RequestParam(value = "LabelUuid",defaultValue = "") String labelUuid){
+        return adminBaseService.removePremiseLabel(labelUuid,"/scratch/adminBased/removeLabel");
     }
 
 }

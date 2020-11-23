@@ -27,4 +27,13 @@ public interface AdminBaseService {
      * @return com.inet.code.utlis.Result
     */
     Result getAmendLabel(String labelUuid, String labelName, String path);
+    /**
+     * 通过标签的uuid删除标签(前提操作)
+     * @author HCY
+     * @since 2020/11/23 11:16 下午
+     * @param labelUuid: 标签的uuid
+     * @param path: URL路径
+     * @return com.inet.code.utlis.Result
+    */
+    Result removePremiseLabel(String labelUuid, String path);
 }

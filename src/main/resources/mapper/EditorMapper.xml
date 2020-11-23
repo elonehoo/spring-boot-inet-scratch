@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.inet.code.mapper.EditorMapper">
 
+    <select id="getLabelUuidCount" resultType="java.lang.Integer">
+        SELECT
+            COUNT( 1 )
+        FROM
+            tbl_editor
+        WHERE
+            editor_label_uuid = #{labelUuid};
+    </select>
 </mapper>

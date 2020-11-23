@@ -2,6 +2,7 @@ package com.inet.code.realize.Impl;
 
 import com.inet.code.entity.Label;
 import com.inet.code.realize.AdminBaseService;
+import com.inet.code.service.EditorService;
 import com.inet.code.service.LabelService;
 import com.inet.code.utlis.Result;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class AdminBaseServiceImpl implements AdminBaseService {
     @Resource
     private LabelService labelService;
 
+    @Resource
+    private EditorService editorService;
     /**
      * 新增类别
      * @author HCY
@@ -76,6 +79,26 @@ public class AdminBaseServiceImpl implements AdminBaseService {
         }
         return new Result().result200(
                 "修改失败,未将" + entityLabelName + "修改成为" +labelName
+                ,path);
+    }
+
+    /**
+     * 通过标签的uuid删除标签
+     * @author HCY
+     * @since 2020/11/23 11:16 下午
+     * @param labelUuid: 标签的uuid
+     * @param path: URL路径
+     * @return com.inet.code.utlis.Result
+     */
+    @Override
+    public Result removePremiseLabel(String labelUuid, String path) {
+        //查询有多少条记录是属于这个类别的
+        Integer count = editorService.getByLabelUuidCount(labelUuid);
+        //通过主键进行查询到类别的名字
+        Label label = labelService.getById(labelUuid);
+        //提示返回值
+        return new Result().result200(
+                label.getLabelName() + "的类别有" + count + "个项目，您确认需要删除吗？"
                 ,path);
     }
 }

@@ -13,4 +13,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EditorService extends IService<Editor> {
 
+    /**
+     * 查询有多少条属于这个类别的项目文件
+     * @author HCY
+     * @since 2020/11/23 11:26 下午
+     * @param labelUuid: 类别序号
+     * @return java.lang.Integer
+    */
+    Integer getByLabelUuidCount(String labelUuid);
+
 }
