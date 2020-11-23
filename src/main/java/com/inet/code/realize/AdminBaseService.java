@@ -16,4 +16,15 @@ public interface AdminBaseService {
     * @return com.inet.code.utlis.Result
     */
     Result getAppendLabel(String labelName, String path);
+
+    /**
+     * 修改类别
+     * @author HCY
+     * @since 2020/11/23 7:58 上午
+     * @param labelUuid: 标签的序号
+     * @param labelName: 标签的名字
+     * @param path: URL路径
+     * @return com.inet.code.utlis.Result
+    */
+    Result getAmendLabel(String labelUuid, String labelName, String path);
 }

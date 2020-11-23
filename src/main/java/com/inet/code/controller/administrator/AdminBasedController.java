@@ -44,5 +44,21 @@ public class AdminBasedController {
         return adminBaseService.getAppendLabel(labelName,"/scratch/adminBased/appendLabel");
     }
 
+    /**
+     * 完成标签的修改
+     * @author HCY
+     * @since 2020/11/23 8:08 上午
+     * @param labelUuid: 标签的uuid
+     * @param labelName: 新的标签名字
+     * @return com.inet.code.utlis.Result
+    */
+    @PutMapping("/amendLabel")
+    public Result putAmendLabel(@RequestParam(value = "LabelUuid",defaultValue = "") String labelUuid,
+                                @RequestParam(value = "LabelName",defaultValue = "") String labelName){
+        return adminBaseService.getAmendLabel(
+                 labelUuid
+                ,labelName
+                ,"/scratch/adminBased/amendLabel");
+    }
 
 }
