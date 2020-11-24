@@ -1,7 +1,6 @@
 package com.inet.code.controller.administrator;
 
 import com.inet.code.realize.AdminBaseService;
-import com.inet.code.service.UserService;
 import com.inet.code.utlis.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -67,9 +66,24 @@ public class AdminBasedController {
                 ,"/scratch/adminBased/amendLabel");
     }
 
+    /**
+     * 通过标签的uuid查询到有多少个项目文件属于这个类别
+     * @author HCY
+     * @since 2020/11/24 7:56 上午
+     * @param labelUuid: 标签的uuid
+     * @return com.inet.code.utlis.Result
+    */
+    @ApiOperation("通过标签的uuid查询到有多少个项目文件属于这个类别(删除前先调用这个方法)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="LabelUuid",value="标签的uuid",dataType="String", paramType = "query"),
+            @ApiImplicitParam(name="LabelName",value="标签的名称",dataType="String", paramType = "query"),
+    })
     @DeleteMapping("/removePremiseLabel")
+    @RequiresRoles(value = {"admin"})
     public Result deleteRemoveLabel(@RequestParam(value = "LabelUuid",defaultValue = "") String labelUuid){
-        return adminBaseService.removePremiseLabel(labelUuid,"/scratch/adminBased/removeLabel");
+        return adminBaseService.removePremiseLabel(
+                labelUuid
+                ,"/scratch/adminBased/removeLabel");
     }
 
 }
