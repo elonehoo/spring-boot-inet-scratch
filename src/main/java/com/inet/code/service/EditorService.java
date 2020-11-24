@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface EditorService extends IService<Editor> {
 
     /**
-     * 查询有多少条属于这个类别的项目文件
+     * 查询有多少条属于这个标签的项目文件
      * @author HCY
      * @since 2020/11/23 11:26 下午
      * @param labelUuid: 类别序号
@@ -22,4 +22,12 @@ public interface EditorService extends IService<Editor> {
     */
     Integer getByLabelUuidCount(String labelUuid);
 
+    /**
+     * 通过标签的序号删除属于该标签的项目文件
+     * @author HCY
+     * @since 2020/11/24 9:03 上午
+     * @param labelUuid: 标签序号
+     * @return java.lang.Boolean
+    */
+    Boolean removeByLabelUuid(String labelUuid);
 }

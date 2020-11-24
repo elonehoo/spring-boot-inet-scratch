@@ -1,9 +1,11 @@
 package com.inet.code.realize.Impl;
 
 import com.inet.code.entity.Label;
+import com.inet.code.entity.Type;
 import com.inet.code.realize.AdminBaseService;
 import com.inet.code.service.EditorService;
 import com.inet.code.service.LabelService;
+import com.inet.code.service.TypeService;
 import com.inet.code.utlis.Result;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +26,15 @@ public class AdminBaseServiceImpl implements AdminBaseService {
 
     @Resource
     private EditorService editorService;
+
+    @Resource
+    private TypeService typeService;
+
     /**
-     * 新增类别
+     * 新增标签
      * @author HCY
      * @since 2020/11/22 下午 09:28
-     * @param labelName: 类别名称
+     * @param labelName: 标签名称
      * @param path: URL路径
      * @return com.inet.code.utlis.Result
      */
@@ -43,14 +49,13 @@ public class AdminBaseServiceImpl implements AdminBaseService {
         label.setLabelModification(new Date());
         //进行存储
         if (labelService.save(label)) {
-            return new Result().result200( label+ "类别,新增成功",path);
+            return new Result().result200( label+ "标签,新增成功",path);
         }
-        return new Result().result500( label+ "类别,新增失败",path);
+        return new Result().result500( label+ "标签,新增失败",path);
     }
 
-
     /**
-     * 修改类别
+     * 修改标签
      * @author HCY
      * @since 2020/11/23 7:58 上午
      * @param labelUuid: 标签的序号
@@ -98,7 +103,91 @@ public class AdminBaseServiceImpl implements AdminBaseService {
         Label label = labelService.getById(labelUuid);
         //提示返回值
         return new Result().result200(
-                label.getLabelName() + "的类别有" + count + "个项目，您确认需要删除吗？"
+                label.getLabelName() + "的标签有" + count + "个项目，您确认需要删除吗？"
+                ,path);
+    }
+
+    /**
+     * 通过标签的uuid删除标签(删除操作)
+     * 需要删除所有属于该标签的名字
+     * @author HCY
+     * @since 2020/11/24 9:00 上午
+     * @param labelUuid: 标签的uuid
+     * @param path: URL路径
+     * @return com.inet.code.utlis.Result
+     */
+    @Override
+    public Result removeLabel(String labelUuid, String path) {
+        //通过uuid查找到该类别
+        Label label = labelService.getById(labelUuid);
+        //判断类别是否从label表中删除
+        if (labelService.removeById(labelUuid)) {
+            //删除属于该类别的项目文件
+            if (editorService.removeByLabelUuid(labelUuid)) {
+                return new Result().result200("删除成功！",path);
+            }
+            //删除失败的情况
+            //将数据回滚
+            labelService.save(label);
+            //返回值
+            return new Result().result500("删除失败！",path);
+        }
+        //删除失败
+        return new Result().result500("删除失败！",path);
+    }
+
+    /**
+     * 新增类别
+     * @author HCY
+     * @since 2020/11/24 9:52 上午
+     * @param typeName: 类别名称
+     * @param path: URL路径
+     * @return com.inet.code.utlis.Result
+     */
+    @Override
+    public Result getAppendType(String typeName, String path) {
+        //创建实体类
+        Type type = new Type();
+        //设置名字
+        type.setTypeName(typeName);
+        //设置创建时间和修改时间
+        type.setTypeCreation(new Date());
+        type.setTypeModification(new Date());
+        //进行存储操作
+        if (typeService.save(type)) {
+            return new Result().result200(
+                    "新增" + typeName + "类别成功"
+                    ,path);
+        }
+        return new Result().result500("新增" + typeName + "类别失败",path);
+    }
+
+    /**
+     * 通过类别的uuid查找到类别实体类，进行修改
+     * @author HCY
+     * @since 2020/11/24 10:51 上午
+     * @param typeUuid: 类别序号
+     * @param typeName: 类别名字
+     * @param path: URL路径
+     * @return com.inet.code.utlis.Result
+     */
+    @Override
+    public Result getAmendType(String typeUuid, String typeName, String path) {
+        //通过类别序号查找类别尸体
+        Type type = typeService.getById(typeUuid);
+        //获取类别的名称
+        String name = type.getTypeName();
+        //进行修改类别名称
+        type.setTypeName(typeName);
+        //进行修改时间
+        type.setTypeModification(new Date());
+        if (typeService.updateById(type)) {
+            return new Result().result200(
+                    "成功将" + name + "修改成" + typeName
+                    ,path);
+        }
+        return new Result().result200(
+                "未能将" + name + "修改成" + typeName
                 ,path);
     }
 }

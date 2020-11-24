@@ -23,7 +23,7 @@ public class EditorServiceImpl extends ServiceImpl<EditorMapper, Editor> impleme
     private EditorMapper editorMapper;
 
     /**
-     * 查询有多少条属于这个类别的项目文件
+     * 查询有多少条属于这个标签的项目文件
      * @author HCY
      * @since 2020/11/23 11:26 下午
      * @param labelUuid: 类别序号
@@ -32,5 +32,17 @@ public class EditorServiceImpl extends ServiceImpl<EditorMapper, Editor> impleme
     @Override
     public Integer getByLabelUuidCount(String labelUuid) {
         return editorMapper.getLabelUuidCount(labelUuid);
+    }
+
+    /**
+     * 通过标签的序号删除属于该标签的项目文件
+     * @author HCY
+     * @since 2020/11/24 9:03 上午
+     * @param labelUuid: 标签序号
+     * @return java.lang.Boolean
+     */
+    @Override
+    public Boolean removeByLabelUuid(String labelUuid) {
+        return editorMapper.removeByLabelUuid(labelUuid);
     }
 }

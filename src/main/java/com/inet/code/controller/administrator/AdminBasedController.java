@@ -67,23 +67,70 @@ public class AdminBasedController {
     }
 
     /**
-     * 通过标签的uuid查询到有多少个项目文件属于这个类别
+     * 通过标签的uuid查询到有多少个项目文件属于这个标签
      * @author HCY
      * @since 2020/11/24 7:56 上午
      * @param labelUuid: 标签的uuid
      * @return com.inet.code.utlis.Result
     */
-    @ApiOperation("通过标签的uuid查询到有多少个项目文件属于这个类别(删除前先调用这个方法)")
+    @ApiOperation("通过标签的uuid查询到有多少个项目文件属于这个标签(删除前先调用这个方法)")
     @ApiImplicitParams({
             @ApiImplicitParam(name="LabelUuid",value="标签的uuid",dataType="String", paramType = "query"),
             @ApiImplicitParam(name="LabelName",value="标签的名称",dataType="String", paramType = "query"),
     })
-    @DeleteMapping("/removePremiseLabel")
+    @GetMapping("/removePremiseLabel")
     @RequiresRoles(value = {"admin"})
-    public Result deleteRemoveLabel(@RequestParam(value = "LabelUuid",defaultValue = "") String labelUuid){
+    public Result getRemoveLabel(@RequestParam(value = "LabelUuid",defaultValue = "") String labelUuid){
         return adminBaseService.removePremiseLabel(
                 labelUuid
+                ,"/scratch/adminBased/removePremiseLabel");
+    }
+
+    /**
+     * 删除标签
+     * @author HCY
+     * @since 2020/11/24 9:22 上午
+     * @param labelUuid:标签的uuid
+     * @return com.inet.code.utlis.Result
+    */
+    @ApiOperation("删除请求，会删除所有属于该标签的所有项目文件的这个标签")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="LabelUuid",value="标签的uuid",dataType="String", paramType = "query"),
+    })
+    @DeleteMapping("/removeLabel")
+    @RequiresRoles(value = {"admin"})
+    public Result deleteRemoveLabel(@RequestParam(value = "LabelUuid",defaultValue = "") String labelUuid){
+        return adminBaseService.removeLabel(
+                labelUuid
                 ,"/scratch/adminBased/removeLabel");
+    }
+
+    /**
+     * 新增类别
+     * @author HCY
+     * @since 2020/11/24 10:27 上午
+     * @param typeName: 类别名称
+     * @return com.inet.code.utlis.Result
+    */
+    @ApiOperation("添加新的类别")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="TypeName",value="类别的名称",dataType="String", paramType = "query"),
+    })
+    @PostMapping("/appendType")
+    @RequiresRoles(value = {"admin"})
+    public Result postAppendType(@RequestParam(value = "TypeName",defaultValue = "") String typeName){
+        return adminBaseService.getAppendType(
+                typeName
+                ,"/scratch/adminBased/appendType");
+    }
+
+    @PutMapping("/amendType")
+    public Result getAmendType(@RequestParam(value = "TypeUuid",defaultValue = "") String typeUuid,
+                               @RequestParam(value = "TypeName",defaultValue = "") String typeName){
+        return adminBaseService.getAmendType(
+                 typeUuid
+                ,typeName
+                ,"/scratch/adminBased/amendType");
     }
 
 }
