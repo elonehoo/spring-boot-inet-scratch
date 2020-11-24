@@ -124,7 +124,21 @@ public class AdminBasedController {
                 ,"/scratch/adminBased/appendType");
     }
 
+    /**
+    * 类别的修改
+    * @author HCY
+    * @since 2020/11/24 下午 08:34
+    * @param typeUuid: 类别的主键
+    * @param typeName: 类别的名字
+    * @return com.inet.code.utlis.Result
+    */
+    @ApiOperation("类别的修改")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="TypeUuid",value="类别的uuid",dataType="String", paramType = "query"),
+            @ApiImplicitParam(name="TypeName",value="类别的名称",dataType="String", paramType = "query"),
+    })
     @PutMapping("/amendType")
+    @RequiresRoles(value = {"admin"})
     public Result getAmendType(@RequestParam(value = "TypeUuid",defaultValue = "") String typeUuid,
                                @RequestParam(value = "TypeName",defaultValue = "") String typeName){
         return adminBaseService.getAmendType(
