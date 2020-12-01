@@ -168,6 +168,7 @@ public class UserBaseServiceImpl implements UserBaseService {
         account.setFrom(FromMailUtil.FROM);
         account.setUser(FromMailUtil.USER);
         account.setPass(FromMailUtil.PASS);
+        account.setSslEnable(FromMailUtil.SSLENABLE);
         return account;
     }
 

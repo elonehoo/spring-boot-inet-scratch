@@ -10,5 +10,6 @@ public class FromMailUtil {
     public static final String FROM = "huchengyea@163.com";
     public static final String USER = "huchengyea";
     public static final String PASS = "SDZSHTMHUKMVSCRA";
-    public static final Integer PORT = 25;
+    public static final Integer PORT = 465;
+    public static final Boolean SSLENABLE = true;
 }
