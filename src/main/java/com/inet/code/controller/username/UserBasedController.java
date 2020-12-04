@@ -60,7 +60,7 @@ public class UserBasedController {
                             @RequestParam(value = "City",defaultValue = "") String city,
                             @RequestParam(value = "Signature",defaultValue = "") String signature){
         return userBaseService.getUpload(
-                token
+                 token
                 ,buddha
                 ,name
                 ,sex

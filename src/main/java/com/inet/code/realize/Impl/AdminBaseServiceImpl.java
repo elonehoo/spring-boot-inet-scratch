@@ -49,9 +49,9 @@ public class AdminBaseServiceImpl implements AdminBaseService {
         label.setLabelModification(new Date());
         //进行存储
         if (labelService.save(label)) {
-            return new Result().result200( label+ "标签,新增成功",path);
+            return new Result().result200( labelName + "标签,新增成功",path);
         }
-        return new Result().result500( label+ "标签,新增失败",path);
+        return new Result().result500( labelName + "标签,新增失败",path);
     }
 
     /**
