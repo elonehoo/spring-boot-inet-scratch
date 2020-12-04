@@ -1,7 +1,6 @@
 package com.inet.code.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.inet.code.realize.BaseService;
 import com.inet.code.utlis.Result;
 import io.swagger.annotations.Api;
