@@ -60,6 +60,9 @@ public class UserBaseServiceImpl implements UserBaseService {
     @Resource
     private ParaiseService paraiseService;
 
+    @Resource
+    private ProductionService productionService;
+
     /**
      * 修改用户信息
      * @author HCY

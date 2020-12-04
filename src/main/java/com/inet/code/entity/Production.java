@@ -33,6 +33,12 @@ public class Production implements Serializable {
     private String productionUuid;
 
     /**
+     * 项目的名字
+     */
+    @TableField(value = "production_name")
+    private String productionName;
+
+    /**
      * 封面的URL地址
      */
     @TableField(value = "production_cover")

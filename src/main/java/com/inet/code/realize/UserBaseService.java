@@ -121,4 +121,5 @@ public interface UserBaseService {
      * @return com.inet.code.utlis.Result
      */
     Result getUploading(MultipartFile file, String path);
+
 }
