@@ -61,4 +61,24 @@ public class BaseController {
         return baseService.getExit(token,"/scratch/based/exit");
     }
 
+    /**
+     * 查看所有的类别
+     * @author HCY
+     * @since 2020/12/4 下午 08:18
+     * @return com.inet.code.utlis.Result
+    */
+    @ApiOperation("查看所有的类别操作")
+    @GetMapping("/listType")
+    @RequiresRoles(logical = Logical.OR,value = {"admin","member"})
+    public Result getListType(){
+        return baseService.getListType("scratch/based/listType");
+    }
+
+    @ApiOperation("查看所有的标签操作")
+    @GetMapping("/listLabel")
+    @RequiresRoles(logical = Logical.OR,value = {"admin","member"})
+    public Result getListLabel(){
+        return baseService.getListLabel("scratch/based/listLabel");
+    }
+
 }

@@ -4,6 +4,8 @@ import cn.hutool.crypto.digest.DigestUtil;
 import com.inet.code.entity.User;
 import com.inet.code.mapper.UserMapper;
 import com.inet.code.realize.BaseService;
+import com.inet.code.service.LabelService;
+import com.inet.code.service.TypeService;
 import com.inet.code.utlis.JwtUtils;
 import com.inet.code.utlis.Result;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -24,6 +26,12 @@ import java.util.concurrent.TimeUnit;
 public class BaseServiceImpl implements BaseService {
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private TypeService typeService;
+
+    @Resource
+    private LabelService labelService;
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
@@ -77,5 +85,30 @@ public class BaseServiceImpl implements BaseService {
         }
         return  new Result().result500("退出失败",path);
     }
+
+    /**
+     * 查看所有的类别
+     * @author HCY
+     * @since 2020/12/4 下午 08:18
+     * @param path: URL路径
+     * @return com.inet.code.utlis.Result
+    */
+    @Override
+    public Result getListType(String path) {
+        return new Result().result200(typeService.list(),path);
+    }
+
+    /**
+     * 查看所有的标签
+     * @author HCY
+     * @since 2020/12/4 下午 09:29
+     * @param path: URL路径
+     * @return com.inet.code.utlis.Result
+    */
+    @Override
+    public Result getListLabel(String path) {
+        return new Result().result200(labelService.list(),path);
+    }
+
 
 }

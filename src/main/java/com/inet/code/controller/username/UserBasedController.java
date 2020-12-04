@@ -214,7 +214,7 @@ public class UserBasedController {
 
     /**
     * 上传.SB3文件,返回文件的URL地址
-    * @author HCY
+    * @author HCY4
     * @since 2020/11/22 下午 08:18
     * @param file: SB3 的文件
     * @return com.inet.code.utlis.Result
@@ -227,5 +227,8 @@ public class UserBasedController {
                  file
                 ,"scratch/userBased/uploading");
     }
+
+
+
 
 }

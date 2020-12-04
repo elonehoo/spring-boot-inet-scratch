@@ -28,4 +28,22 @@ public interface BaseService {
      * @return Result风格
      */
     Result getExit(String token, String path);
+
+    /**
+     * 查看所有的类别
+     * @author HCY
+     * @since 2020/12/4 下午 08:17
+     * @param path:
+     * @return com.inet.code.utlis.Result
+    */
+    Result getListType(String path);
+
+    /**
+     * 查看所有的标签
+     * @author HCY
+     * @since 2020/12/4 下午 09:28
+     * @param path: URL路径
+     * @return com.inet.code.utlis.Result
+    */
+    Result getListLabel(String path);
 }
