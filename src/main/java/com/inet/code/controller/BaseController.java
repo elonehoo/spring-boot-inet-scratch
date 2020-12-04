@@ -74,6 +74,12 @@ public class BaseController {
         return baseService.getListType("scratch/based/listType");
     }
 
+    /**
+     * 查看所有的标签
+     * @author HCY
+     * @since 2020/12/4 下午 09:35
+     * @return com.inet.code.utlis.Result
+    */
     @ApiOperation("查看所有的标签操作")
     @GetMapping("/listLabel")
     @RequiresRoles(logical = Logical.OR,value = {"admin","member"})
