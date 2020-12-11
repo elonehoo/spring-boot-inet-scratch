@@ -1,5 +1,6 @@
 package com.inet.code.controller.username;
 
+import com.inet.code.entity.User;
 import com.inet.code.realize.UserBaseService;
 import com.inet.code.service.UserService;
 import com.inet.code.utlis.Result;
@@ -226,8 +227,5 @@ public class UserBasedController {
                  file
                 ,"scratch/userBased/uploading");
     }
-
-
-
 
 }
