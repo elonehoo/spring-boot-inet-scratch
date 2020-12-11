@@ -7,8 +7,8 @@
             cipher_uuid AS cipherUuid,
             cipher_email AS cipherEmail,
             cipher_password AS cipherPassword,
-            cipher_creation AS cipherCreation,
-            cipher_modification AS cipherModification
+            gmt_create AS gmtCreate,
+            gmt_modified AS gmtModified
         FROM
             tbl_cipher
         WHERE

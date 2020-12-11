@@ -48,8 +48,8 @@
             user_birthday AS userBirthday,
             user_city AS userCity,
             user_signature AS userSignature,
-            user_creation AS userCreation,
-            user_modification AS userModification
+            gmt_create AS gmtCreate,
+            gmt_modified AS gmtModified
         FROM
             tbl_user
         WHERE

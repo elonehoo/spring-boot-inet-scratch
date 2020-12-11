@@ -6,8 +6,8 @@
         SELECT
             portrait_uuid AS portraitUuid,
             portrait_src AS portraitSrc,
-            portrait_creation AS portraitCreation,
-            portrait_modification AS portraitModification
+            gmt_create AS gmtCreate,
+            gmt_modified AS gmtModified
         FROM
             tbl_portrait
         LIMIT #{randomInt},1;

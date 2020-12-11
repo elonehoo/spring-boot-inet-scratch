@@ -45,8 +45,8 @@ public class AdminBaseServiceImpl implements AdminBaseService {
         //设置类别名称
         label.setLabelName(labelName);
         //设置创建时间和修改时间
-        label.setLabelCreation(new Date());
-        label.setLabelModification(new Date());
+//        label.setLabelCreation(new Date());
+//        label.setLabelModification(new Date());
         //进行存储
         if (labelService.save(label)) {
             return new Result().result200( labelName + "标签,新增成功",path);
@@ -75,7 +75,7 @@ public class AdminBaseServiceImpl implements AdminBaseService {
         //修改标签的名字
         entity.setLabelName(labelName);
         //修改标签的修改时间
-        entity.setLabelModification(new Date());
+//        entity.setLabelModification(new Date());
         //进行修改
         if (labelService.updateById(entity)) {
             return new Result().result200(
@@ -151,8 +151,8 @@ public class AdminBaseServiceImpl implements AdminBaseService {
         //设置名字
         type.setTypeName(typeName);
         //设置创建时间和修改时间
-        type.setTypeCreation(new Date());
-        type.setTypeModification(new Date());
+//        type.setTypeCreation(new Date());
+//        type.setTypeModification(new Date());
         //进行存储操作
         if (typeService.save(type)) {
             return new Result().result200(
@@ -180,7 +180,7 @@ public class AdminBaseServiceImpl implements AdminBaseService {
         //进行修改类别名称
         type.setTypeName(typeName);
         //进行修改时间
-        type.setTypeModification(new Date());
+//        type.setTypeModification(new Date());
         if (typeService.updateById(type)) {
             return new Result().result200(
                     "成功将" + name + "修改成" + typeName

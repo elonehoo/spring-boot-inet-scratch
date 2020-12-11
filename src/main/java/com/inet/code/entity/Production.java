@@ -2,6 +2,7 @@ package com.inet.code.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 
+import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author HCY
- * @since 2020-12-04
+ * @since 2020-12-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -33,7 +34,7 @@ public class Production implements Serializable {
     private String productionUuid;
 
     /**
-     * 项目的名字
+     * 作品名称
      */
     @TableField(value = "production_name")
     private String productionName;
@@ -43,6 +44,12 @@ public class Production implements Serializable {
      */
     @TableField(value = "production_cover")
     private String productionCover;
+
+    /**
+     * 作品的用户邮箱
+     */
+    @TableField(value = "production_user_email")
+    private String productionUserEmail;
 
     /**
      * 项目的地址
@@ -83,16 +90,16 @@ public class Production implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(value = "production_creation")
+    @TableField(value = "gmt_create",fill = FieldFill.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date productionCreation;
+    private Date gmtCreate;
 
     /**
      * 修改时间
      */
-    @TableField(value = "production_modification",update = "NOW()",fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "gmt_modified",fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date productionModification;
+    private Date gmtModified;
 
 
 }

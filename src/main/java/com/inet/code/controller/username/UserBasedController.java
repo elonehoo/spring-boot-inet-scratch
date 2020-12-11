@@ -43,12 +43,11 @@ public class UserBasedController {
     @ApiOperation("修改操作")
     @RequiresRoles(value = {"member"})
     @ApiImplicitParams({
-            @ApiImplicitParam(name="Token",value="令牌",dataType="String", paramType = "query"),
             @ApiImplicitParam(name="Buddha",value="头像",dataType="String", paramType = "query"),
             @ApiImplicitParam(name="Name",value="名字",dataType="String", paramType = "query"),
             @ApiImplicitParam(name="Sex",value="性别",dataType="Boolean", paramType = "query"),
             @ApiImplicitParam(name="Birthday",value="生日",dataType="String", paramType = "query"),
-            @ApiImplicitParam(name="City",value="生日",dataType="String", paramType = "query"),
+            @ApiImplicitParam(name="City",value="位置",dataType="String", paramType = "query"),
             @ApiImplicitParam(name="Signature",value="个性签名",dataType="String", paramType = "query"),
     })
     @PutMapping("/upload")

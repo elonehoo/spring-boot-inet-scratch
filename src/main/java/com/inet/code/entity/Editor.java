@@ -1,9 +1,7 @@
 package com.inet.code.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Date;
@@ -50,16 +48,16 @@ public class Editor implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(value = "editor_creation")
+    @TableField(value = "gmt_create",fill = FieldFill.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date editorCreation;
+    private Date gmtCreate;
 
     /**
      * 修改时间
      */
-    @TableField(value = "editor_modification")
+    @TableField(value = "gmt_modified",fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date editorModification;
+    private Date gmtModified;
 
 
 }

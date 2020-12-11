@@ -7,8 +7,8 @@
         SELECT
             role_uuid AS roleUuid,
             role_name AS roleName,
-            role_creation AS roleCreation,
-            role_modification AS roleModification
+            gmt_create AS gmtCreate,
+            gmt_modified AS gmtModified
         FROM
             tbl_role
         WHERE

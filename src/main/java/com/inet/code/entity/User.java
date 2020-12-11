@@ -76,16 +76,16 @@ public class User implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(value = "user_creation")
+    @TableField(value = "gmt_create",fill = FieldFill.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date userCreation;
+    private Date gmtCreate;
 
     /**
      * 修改时间
      */
-    @TableField(value = "user_modification",update = "NOW()",fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "gmt_modified",fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date userModification;
+    private Date gmtModified;
 
     /**
      * 权限名称

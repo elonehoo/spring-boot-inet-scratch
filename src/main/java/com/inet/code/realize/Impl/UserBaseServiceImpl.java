@@ -60,8 +60,7 @@ public class UserBaseServiceImpl implements UserBaseService {
     @Resource
     private ParaiseService paraiseService;
 
-    @Resource
-    private ProductionService productionService;
+
 
     /**
      * 修改用户信息
@@ -77,6 +76,7 @@ public class UserBaseServiceImpl implements UserBaseService {
      * @param path URL路径
      * @return Result风格
      */
+//    eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6IjI0MTQ3NzYxODVAcXEuY29tIiwiZXhwIjoxNjA4MjU2MzY4LCJ1c2VySWQiOiJhMDQ5ZGU3MDk2ZjFjMmRkNTk4NjRlZTkxYjhiZGRlZSJ9.8aXQcxOKhp3Lqr1ugSYhA5AFS58Tb766yWgopc3FV6Q
     @Override
     public Result getUpload(String token, String buddha, String name, Boolean sex
             , String birthday, String city, String signature, String path) {
@@ -144,7 +144,7 @@ public class UserBaseServiceImpl implements UserBaseService {
         MailUtil.send(
                 account
                 , email
-                , "博语兼程社区验证码"
+                , "博语编程社区验证码"
                 , "注册验证码为:" + code + ",有效时长为5分钟"
                 , false);
         //将验证码存入Redis
@@ -214,7 +214,7 @@ public class UserBaseServiceImpl implements UserBaseService {
             return emailRepeat;
         }
         //判断验证码是否正确
-        String verification = (String) redisTemplate.opsForValue().get(email);
+        String verification = (String) redisTemplate.opsForValue().get(email) == null ? "" : (String) redisTemplate.opsForValue().get(email);
         if (!verification.equals(code)){
             return new Result().result403("验证码错误",path);
         }
@@ -224,25 +224,30 @@ public class UserBaseServiceImpl implements UserBaseService {
         }
         //进行注册操作，注册的用户权限为 ： member
         User user = new User();
+        //头像
         user.setUserBuddha(portraitService.getRandomImagesUrl().getPortraitSrc());
+        //用户名
         user.setUserName(email);
+        //邮箱
         user.setUserEmail(email);
-        user.setUserCreation(new Date());
-        user.setUserModification(new Date());
+        //生日
+        user.setUserBirthday(new Date());
+        //性别
+        user.setUserSex(true);
+        //城市
+        user.setUserCity("");
+        //个性签名
+        user.setUserSignature("");
         userService.save(user);
         //设置密码
         Cipher cipher = new Cipher();
         cipher.setCipherEmail(email);
         cipher.setCipherPassword(DigestUtil.md5Hex(password));
-        cipher.setCipherCreation(new Date());
-        cipher.setCipherModification(new Date());
         cipherService.save(cipher);
         //设置权限 - member
         Power power = new Power();
         power.setPowerEmail(email);
         power.setPowerRole(roleService.getRoleName("member").getRoleUuid());
-        power.setPowerCreation(new Date());
-        power.setPowerModification(new Date());
         powerService.save(power);
         return new Result().result200("注册成功",path);
     }
@@ -429,8 +434,8 @@ public class UserBaseServiceImpl implements UserBaseService {
         //设置需要点赞的邮箱
         paraise.setPraiseEconomy(thumbUpEmail);
         //设置创建和修改的时间
-        paraise.setPraiseCreation(new Date());
-        paraise.setPraiseModification(new Date());
+//        paraise.setPraiseCreation(new Date());
+//        paraise.setPraiseModification(new Date());
         //进行存储
         if (paraiseService.save(paraise)) {
             return new Result().result200("点赞成功",path);
@@ -499,8 +504,8 @@ public class UserBaseServiceImpl implements UserBaseService {
         //设置需要关注的邮箱
         attention.setAttentionConcern(focusEmail);
         //设置创建时间和修改时间
-        attention.setAttentionCreation(new Date());
-        attention.setAttentionModification(new Date());
+//        attention.setAttentionCreation(new Date());
+//        attention.setAttentionModification(new Date());
         //进行保存操作
         if (attentionService.save(attention)) {
             return new Result().result200("关注成功", path);
